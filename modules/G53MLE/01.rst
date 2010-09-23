@@ -1,0 +1,42 @@
+.. _G53MLE01:
+
+=====================
+01 - Machine Learning
+=====================
+
+Dr. Guoping Qiu
+
+qiu@cs.nott.ac.uk
+
+http://cs.nott.ac.uk/~qiu
+
+http://cs.nott.ac.uk/~qiu/Teaching/G53MLE
+
+C34, CS Building
+
+Basic Topics
+============
+
+- Decision tree learning
+- Artificial neural networks
+- Bayesian learning
+- Data processing & representations
+- Instance based learning
+- Support vector machines
+- Clustering analysis
+- Emerging machine learning paradigms
+- Applications of machine learning
+
+Assessment
+==========
+
+- One two-hour final exam (75%)
+- One piece of programming-based coursework (25%)
+ - Deadline 4PM, 30th November 2010
+
+No past papers are available, but a mock exam will be distributed instead.
+
+Textbooks/Reading Material
+==========================
+
+Tom M. Mitchell, Machine Learning, McGraw-Hill, 1997
