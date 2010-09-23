@@ -6,18 +6,29 @@
 Welcome to Rob's Lecture Notes
 ==============================
 
-Contents:
+G53MLE
+------
 
 .. toctree::
-    :maxdepth: 1
+	:maxdepth: 1
+	:glob:
+	
+	modules/G53MLE/*
 
-    :glob:
-    modules/*
+G53GUI
+------
 
-Indices and tables
-==================
+.. toctree::
+	:maxdepth: 1
+	:glob:
+	
+	modules/G53GUI/*
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+G53SRP
+------
 
+.. toctree::
+	:maxdepth: 1
+	:glob:
+	
+	modules/G53SRP/*
