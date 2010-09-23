@@ -1,0 +1,128 @@
+.. _G53GUI01:
+
+==============================
+01 - Graphical User Interfaces
+==============================
+
+An interface centred on some form of software controlled 2D surface
+
+An interface between a user and a computer system involving a mouse-controlled cursor to select options from menus, make choices with buttons, start programs by clicking icons etc.
+
+Using Java Swing API.
+
+Why a Module
+============
+
+Poor interfaces make software useless, 2D software controlled interfaces are the current norm. Understanding of current GUIs translates to other interactive systems.
+
+ENIAC (1943)
+============
+
+*Electronic Numerical Integrator And Calculator*. Specialists would interface directly with the hardware, changing witches literally change electrical flow. Only people who used were the inventors.
+
+Manchester Mark 1 (1944)
+========================
+
+Paper tape puts distance between users and the machine (but not much).
+
+Vannevar Bush (1945)
+====================
+
+Identified the information storage and retrieval problem, meaning that knowledge was not reaching the people who could benefit from it.
+
+Invented *Memex*, an analogue desk which contained information and projected that information for the user, allowing capture and retrieval of information.
+
+This was just a concept and not an actual machine.
+
+Basis of the hypertext system.
+
+IBM SSEX (1948)
+===============
+
+Operators and engineers begin be separated, operation is still a skilled task.
+
+IBM Stretch (1961)
+==================
+
+More compact interface, hardware based but a 2D surface with object on it. Not much though about the presentation of information (limited by technology).
+
+Ivan Sutherland's 1963 SketchPad
+================================
+
+Created SketchPad, which is a drawing package (hardware and software) for his PhD project. Uses a control board and a light pen.
+
+He invented a lot of ideas which have stuck around:
+
+- Hierarchical structures
+- object-oriented programming
+- constraints
+- icons
+- copying
+- input techniques
+- world coordinates
+- recursive operations
+
+**Also invented the mouse!** Made out of a block of wood with a single button.
+
+Xerox PARC
+==========
+
+A very active lab in the mod-70s. Regarded themselves as an AI lab.
+
+- Created Alto computer, a personal workstation a bit like a Macintosh.
+- modern graphical interfaces
+- local area networks (ethernet) for personal workstations
+
+**!981 Xerox Star** was the first commercial perosn computer designed for "business professionals". It had the first comprehensive GUI and used many ideas developed at Xerox PARC.
+
+- promoted recognising/pointing rather than remembering/typing.
+
+Xerox took interface design very seriously. Experimented with icons inverting when you clicked them, conducting psychological experiments. THey also wanted icons to relate to real life objects and be meaningful.
+
+Apple Lisa (1983)
+=================
+
+Xerox stupidly showed Steve Jobs Xerox technologies, and then he created the Apple Lisa.
+
+Based upon many ideas from Xerox PARC.
+
+Predecessor of the Macintosh (it was a commercial failure).
+
+Check out http://guidebookgallery.ord/index for some interesting info about development.
+
+Architecture of Interactive Systems
+===================================
+
+Uses an MVC (Model View Controller). The user has a mental model of the system they are using (probably unbeknownst to them). There is also then a data model in the program.
+
+The goal of an interface is to keep these two models in line.
+
+A **View** takes information from the data model and presents it to the user.
+
+A **Controller** accepts input form the user and translates that into information which is meaningful to the system (potentially altering the data model.)
+
+A good interactive system responds quickly in order to synchronise mental and data models quickly.
+
+The Window Elf
+==============
+
+A tangible interface based on moving an elf, by physically moving the elf a camera interprets that information and translates that (in the controller) into meaningful information for the data model.
+
+This shows the MVC architecture is a generic one, which can be used in many situations. In the window elf case views are not used at all.
+
+The Module
+==========
+
+The principles of interactive software
+
+- Architectures windowing models
+- Widgets
+- Event driven programming
+- 2D graphics
+- design guidelines
+
+The Practice of interactive software
+
+- Development of interactive applications
+- Knowledge of Java Swing and Java 2D APIs
+- Integrated Development Environments (IDEs)
