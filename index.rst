@@ -6,29 +6,38 @@
 Welcome to Rob's Lecture Notes
 ==============================
 
-G53MLE
-------
+:ref:`G52GUI`
+-------------
 
 .. toctree::
 	:maxdepth: 1
 	:glob:
 	
-	modules/G53MLE/*
+	modules/G52GUI/[0-9][0-9]
 
-G53GUI
-------
-
-.. toctree::
-	:maxdepth: 1
-	:glob:
-	
-	modules/G53GUI/*
-
-G53SRP
-------
+:ref:`G53MLE`
+-------------
 
 .. toctree::
 	:maxdepth: 1
 	:glob:
 	
-	modules/G53SRP/*
+	modules/G53MLE/[0-9][0-9]
+
+:ref:`G53SRP`
+-------------
+
+.. toctree::
+	:maxdepth: 1
+	:glob:
+	
+	modules/G53SRP/[0-9][0-9]
+
+:ref:`G54ACC`
+-------------
+
+.. toctree::
+	:maxdepth: 1
+	:glob:
+	
+	modules/G54ACC/[0-9][0-9]
