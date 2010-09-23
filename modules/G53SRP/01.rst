@@ -1,0 +1,101 @@
+.. _G53SRP01:
+
+==================================
+01 - System & Realtime Programming
+==================================
+
+Chris Greenhalgh
+
+Room B52
+
+cmg@cs.nott.ac.uk
+
+Aim
+---
+
+Issues of programming relevant to real-time, concurrent and embedded systems.
+
+Assessment
+----------
+
+- 2-hour written exam (100%)
+
+Topics
+------
+
+- Realtime and embedded systems
+- The *Realtime Specification for Java* (RTSJ)
+- Time and its use in programs
+- Event-driven programming
+- Realtime scheduling and schedulability
+
+What is a Real-Time System?
+---------------------------
+
+A real-time system is any information processing system which has to respond to externally generated input stimuli within a finite and specified period.
+
+Correctness depends not only on the result but also on the time in which is was delivered.
+
+The computer is a component in a larger engineering system - an embedded device.
+
+Terminology
+-----------
+
+**Hard real-time**
+	Systems where it is absolutely imperative that responses occur within the required deadline (e.g. flight control systems).
+
+**Soft real-time**
+	Systems where deadlines are important but which will still function correctly if deadlines are occasionally missed (e.g. data acquisition).
+
+**"Real" real-time**
+	Systems which are hard real-time and which the response times are very short (e.g. missile guidance system).
+
+**Firm real-time**
+	Systems which are soft real-time and delay means effort is wasted but no harm is done.
+
+Characteristics of a RTS
+------------------------
+
+- Large and complex - vary from a few hundred lines of assembly code to 20 million lines of Ada estimated for the Space Station Freedom
+
+- Concurrent control of separate system components - devices operate in parallel in the real-world
+
+- Facilities to interact with specific hardware
+
+- Extreme reliability and safety
+
+- Guaranteed response times
+    - we need to be able to predict with confidence the worst case response times for systems; efficiency is important but predictability is  *essential*
+
+The Realtime Specification for Java (RTSJ)
+------------------------------------------
+
+- Programming realtime systems requires appropriate support from the programming language
+
+Java is platform independent, high-level and non-realtime
+
+RTSJ is designed to make Java better at realtime programming
+
+Guiding Principals
+^^^^^^^^^^^^^^^^^^
+
+- Backwards compatible with non real-time java programs
+- Support the principle of "Write once, run anywhere" but not at the expense of predictability
+- Address the current real-time system practice
+- Give priority to predictable execution in all design trade-offs
+- Require to syntactic extensions
+- Allow implementers flexibility
+
+**Real-time Java functionality requires real-time OS support!**
+
+Enhancements
+^^^^^^^^^^^^
+
+- Memory management
+- Time values and clocks
+- Schedulable objects and scheduling
+- Real-time threads
+- Asynchronous event handling and timers
+- Asynchronous transfer of control
+- Synchronization and resource handling
+- Physical memory access
