@@ -1,0 +1,40 @@
+============================
+IP & Up 01 - Internetworking
+============================
+
+Recap
+-----
+
+- IP sits at layer 3 of the OSI model and of the internet stack
+- It approximates a fully-connected network abstration
+- IP packets are hop-by-hop routed by store-and-forward devices
+
+Addressing
+----------
+
+Subnet masks were not used until CIDR came along, which separated the encoding
+of the prefix length and the network/host addresses.
+
+Routing
+-------
+
+When a router receieves a packet, it can either *drop* it, or *forward* it.
+Routing is the process of forwarding packets onto a particular interface that
+gets the packet **closer** to its destination.
+
+Forwarding
+----------
+
+The *forwarding table* stores where each packet should go next, based on its
+destination address.
+
+The table must allow for fast lookups, and also updates to account for changes
+in the rules.
+
+When a packet is forwarded, the *time-to-live* field is decremented, so that
+packets will eventually die if there is a routing loop.
+
+Packets are also fragmented if necessary, if the destination network has
+a lower MTU.
+
+
