@@ -6,38 +6,35 @@
 Welcome to Rob's Lecture Notes
 ==============================
 
-:ref:`G52GUI`
--------------
+Semester 1 (Autumn)
+"""""""""""""""""""
 
 .. toctree::
-	:maxdepth: 1
-	:glob:
-	
-	modules/G52GUI/[0-9][0-9]
+    :maxdepth: 1
+    :glob:
+    
+    modules/G52GUI/index
+    modules/G53MLE/index
+    modules/G53SRP/index
+    modules/G54ACC/index
 
-:ref:`G53MLE`
--------------
-
-.. toctree::
-	:maxdepth: 1
-	:glob:
-	
-	modules/G53MLE/[0-9][0-9]
-
-:ref:`G53SRP`
--------------
+Semester 2 (Spring)
+"""""""""""""""""""
 
 .. toctree::
-	:maxdepth: 1
-	:glob:
-	
-	modules/G53SRP/[0-9][0-9]
+    :maxdepth: 1
+    :glob:
+    
+    modules/G52CFJ/index
+    modules/G53OPS/index
+    modules/G53NMD/index
+    modules/G54MDP/index
 
-:ref:`G54ACC`
--------------
+Full Year
+"""""""""
 
 .. toctree::
-	:maxdepth: 1
-	:glob:
-	
-	modules/G54ACC/[0-9][0-9]
+    :maxdepth: 2
+    :glob:
+    
+    modules/G53IDS/index

@@ -4,21 +4,10 @@
 01 - System & Realtime Programming
 ==================================
 
-Chris Greenhalgh
-
-Room B52
-
-cmg@cs.nott.ac.uk
-
 Aim
 ---
 
 Issues of programming relevant to real-time, concurrent and embedded systems.
-
-Assessment
-----------
-
-- 2-hour written exam (100%)
 
 Topics
 ------
