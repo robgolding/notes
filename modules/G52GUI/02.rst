@@ -1,0 +1,19 @@
+===========================
+02 - Some Simple Interfaces
+===========================
+
+Architecture of Interactive Systems
+-----------------------------------
+
+Dangers of *Gulf of Evaluation* (user cannot understand the data model)
+and *Gulf of Execution* (user cannot perform a desired action).
+
+Implementing an Interface
+-------------------------
+
+Two main elements need to be coded in order to build an interface:
+
+- The hierarchy of components (made up of swing objects in practice)
+- The behaviour of each element that makes up the interface (java code
+  associated with each element)
+
