@@ -1,0 +1,25 @@
+=================
+01 - Introduction
+=================
+
+Admin
+-----
+
+Deliverables:
+
+- 8th Oct: agree a project
+- 15th Oct: submit detailed project proposal including 2-page plan
+- 19th Oct: submit revised project proposal (PDF) to ``cw submit``
+- 29th Nov - 3rd Dec: presentation of progress (10%)
+
+- 28th Feb: submit dissertation outline and sample chapter
+- 6th May: submit dissertation
+- 12th May: software demo (10%)
+
+Project Proposal
+----------------
+
+- Project title
+- Aims & objectives
+- Background and motivation (why it's worth doing)
+- Project plan
