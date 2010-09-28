@@ -1,0 +1,50 @@
+============
+02 - Threads
+============
+
+In high-level programming languages, one execution is executed at a time
+- though each instruction could be a combination of lower level instructions.
+
+Out-of-order execution is expressed by:
+
+- if/else statements
+- loops
+- goto
+- exception handlers
+- procedures/method calls
+
+Scheduling
+----------
+
+Most operating systems virtualise the CPU, so that it can manage the CPU as
+a resource, that can be shared by potentially many programs on the same
+machine.
+
+Applications are known as "heavy-weight" processes, and have their own
+(separate) view of memory.
+
+Threads are "light-weight" processes, and have the same heap within the same
+program.
+
+Java Concurrency Model
+----------------------
+
+Java supports threads executing within the same JVM.
+
+*Native threads* map a single Java thread to an OS thread.
+
+*Green threads* adopt the thread library approach (threads are invisible to the
+OS).
+
+On a multiprocessor system, native threads are required to get true
+parallellism.
+
+java.lang.Thread
+----------------
+
+Each instance of the ``Thread`` class has/is one thread.
+
+The ``run()`` method is executed in a new thread when ``start()`` is called.
+
+The thread ends when the when the ``run()`` method returns.
+
