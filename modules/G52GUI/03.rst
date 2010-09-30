@@ -1,0 +1,86 @@
+.. _G52GUI03:
+
+=======================
+03 - WIndows and Events
+=======================
+
+Windows & Widgets
+-----------------
+
+- Each window has an associated widget responsible for interaction with that
+  rectangle
+- Part of the widget implements the view
+
+The Redraw Problem
+^^^^^^^^^^^^^^^^^^
+
+If a window is sat overlapping another, when that window is moved, the one
+underneath needs to redraw the area that has been exposed.
+
+This is a problem, because the widget on top knows that something needs to be
+redrawn (but not *what*), and the widget underneath doesn't know that it needs
+to redraw itself.
+
+Therefore, all widgets implements ``redraw(Graphics G)`` (where ``G`` is
+a **Graphics Context**).
+
+Graphics Context
+^^^^^^^^^^^^^^^^
+
+- Graphics object, sometimes known as a *canvas*, *sheet*, etc.
+- Allows the GUI programmer access to the actual drawing device (e.g. the
+  windowing system(
+- Defines basic set of drawing methods to be used that abstract from the
+  hardware etc.
+- The underlying windowing system deals with interactions between windows
+- Makes drawing efficient using techniques such as clipping
+
+Summary
+^^^^^^^
+
+The windowing system deals with interaction between windows, and can be thought
+of as a "global" view.
+
+The view is implemented on the widget, and can redraw itself given a graphics
+context ``G``.
+
+Processing Events
+-----------------
+
+Events must be dispatched to the correct application/window by the Windowing
+System.
+
+The controller uses the view's **Essential Geometry** to decide what code to
+run for a particular event (clicking inside the calculator widget, for
+example).
+
+Essential Geometry
+^^^^^^^^^^^^^^^^^^
+
+Maps from lower level graphics to higher level semantics.
+
+E.g. maps mouse position to some meaningful concept in the model.
+
+Dispatching Events
+------------------
+
+The windowing system needs to dispatch the event to the correct applicaton.
+
+The window tree is used to map from a mouse event to a widget, in one of three
+ways:
+
+- Bottom up: start with the "leaf node" of the tree (the widget under the
+  mouse) and work up the tree until a widget accepts the event
+- Top down: start with the root widget and work towards the leaf until a widget
+  accepts the event
+- Focus: windowing system keeps a pointer to the widget with the keyboard
+  focus, and sends all keyboard events to that widget. This can also be done
+  with mouse events (for example, when dragging a slider sloppily)
+
+Event Driven Programming
+------------------------
+
+Regardless of the event, all are put onto an *event queue*.
+
+Many events have *payloads*, that give details about the event (e.g. mouse
+pointer location, keyboard characters, etc.)
