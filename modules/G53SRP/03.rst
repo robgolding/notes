@@ -1,0 +1,13 @@
+.. _G53SRP03:
+
+=====================
+03 - Java Concurrency
+=====================
+
+Synchronisation
+---------------
+
+* Every Java object has an associated lock
+* Every class is also an object, and therefore has it's own lock
+* At most one thread can hold a lock at any time
+* Locks are managed through the ``synchronized`` keyword
