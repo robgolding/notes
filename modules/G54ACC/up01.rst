@@ -37,4 +37,18 @@ packets will eventually die if there is a routing loop.
 Packets are also fragmented if necessary, if the destination network has
 a lower MTU.
 
+Fragmentation
+-------------
 
+* IP allows datagram sizes up to 64KB
+* Physical networks often only support smaller frame types (MTU)
+  - e.g. Ethernet 1500bytes, dialup PPP ~256bytes
+
+Fragmentation may be done by the sending host, or an intermediate router. Each
+fragment itself is an IP packet (with the same header, destination, etc.)
+
+This is prevented with the IP "Do not fragment" flag.
+
+Reassembly is done only by the ultimate destination of the packet, and only
+after checking the header checksum, destination and ID (but before any other
+processing). If one segment is lost, the entire packet is lost.

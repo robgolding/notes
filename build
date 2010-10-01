@@ -1,5 +1,5 @@
 #!/bin/bash
 
-workon lectures
+source ~/.virtualenvs/lectures/bin/activate
 
 make html
