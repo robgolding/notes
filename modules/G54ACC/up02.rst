@@ -1,88 +1,139 @@
-=========================
-IP & UP 02 - Multiplexing
-=========================
+.. _G54ACCUP02:
 
-**Space division multiplexing**
-    Reuse of a channel in different places (e.g. terrestrial TV)
+====================
+IP & Up 02 - Routing
+====================
 
-**Frequency division multiplexing**
-    Use of different frequencies within a channel (e.g. terrestrial TV also!)
+What is Routing?
+----------------
 
-**Time division multiplexing**
+Routing is the process of building up information to enable forwarding.
 
-**Code division multiplexing**
+It is a problem because of:
 
-Multiplexing (STM)
-------------------
+* Scalability: networks become large
+* Dyanmics: need to handle host/link failures
 
-Telephone network is referred to as STM (*Synchronous Transfer Mode*).
+IP Routing
+----------
 
-Links are shared with a fixed cyclical schedule, so bandwidth is fixed and is
-used even if the link is idle (silence on the phone line, for example).
+There are two different routing techniques for IP routing:
 
-The destination of the data is decided based upon where it came from, and
-*when* it came.
+* Link-state routing
+* Distance-vector routing
 
-Hardware is simple, so very high speed.
+These are both equivalent, but make different trade-offs.
 
-Multiplexing (PTM)
-------------------
+Technically, the third technique is static routing, but that's trivial!
 
-The internet uses PTM (*Packet Transfer Mode*).
+Link-State Routing
+^^^^^^^^^^^^^^^^^^
 
-Packets have a header that defines the destination of the packet, and packets
-can be of an **arbitrary size**.
+Two common implementations:
 
-Hardware is more complex (as it has to lookup the label in the packet header),
-so is slower.
+* Open Shortest Path First (OSPF)
+* Intermediate-System Intermediate System (IS-IS)
 
-Multiplexing (ATM)
-------------------
+...and they have three phases:
 
-*Asynchronous Transfer Mode* is like PTM in that the destination of data is
-determined by the header of a packet, however all packets are the **same
-size** and the label is very small (so lookup is much faster). The label
-refers to a virtual circuit that only exists on a particular router/switch, so
-it has to be altered at every hop.
+#. Determine link status (HELLO)
+#. Broadcase link status (UPDATE)
+#. Compute and install shortest paths
 
-Statistical Multiplexing
-------------------------
+Determining Link State
+""""""""""""""""""""""
 
-If an application uses 1Mbps of a 10Mpbs link, 10% of the time, then with STM
-1Mb of bandwidth must be allocated to each user of the application - so it
-could support 10 at a time.
+Uses a three-way handshake across each link to determine if it is alive.
 
-With PTM/ATM however, it could support between 10 and 100 users (depending on
-luck, delay etc.).
+This runs periodically to ensure that the link is still up. Therefore, each
+router knows to whom it's connected.
 
-Randomness
+Broadcast Link State
+""""""""""""""""""""
+
+Each router summarises it's view of the network, and forwards that on to the
+other routers. Each prefix is represented as a link.
+
+In practice, this is quite complex, due to versioning, summarisation, loop
+detection etc.
+
+As a result, each router eventually knows to whom others are connected.
+
+Compute & Install Shortest Paths
+""""""""""""""""""""""""""""""""
+
+Each router can now run a standard shortest-path algorithm on it's view of the
+network (Dijksta, for example).
+
+The best *next hop* is then computed for each prefix, so the router knows what
+to do when a packet arrives.
+
+Distance-Vector Routing
+^^^^^^^^^^^^^^^^^^^^^^^
+
+In DV routing, routers co-operate in the computation of the shortest path,
+which should (if the network is stable) converge.
+
+Each router broadcasts the lowest cost for each link to all known destinations.
+Packets are then forwarded on the port from which the best "advert" was heard.
+
+RIP is an implementation of DV routing.
+
+Comparison
 ^^^^^^^^^^
 
-To calculate the probabiltiy that more than 10 users talk at once (and hence
-the probability that we loose packets), me must understand the random
-transmission of packets (or the *stochastic* process). This has been a research
-topic for the last 30 years, and is still so.
+Link-State routing is in essence *centralized* computation, whereas
+Distance-Vector routing is *distributed* computation.
 
-It was first applied to the the early telephony network by a mathemetician
-called Erlang, and is still an issue today with MPEG encoding on digital TV
-networks.
+Inter-Network Routing
+---------------------
 
+The distinction between *global* and *local* networks must be made. There are
+different protocols for these different types of network:
 
-Code Division Multiple Access (CDMA)
-------------------------------------
+* IGP - Interior Gateway Protocol
+* EGP - Exterior Gateway Protocol
 
-Allows multiple users to coexist within the same frequency space, with minimal
-interference.
+Information propogation must be scoped to provide protection (so internal
+network information is not broadcasted outside the network).
 
-Each user is assigned a unique code, which allows them to receieve the data
-being transmitted. It is very difficult to receive the signal (or indeed
-interfere with it) if you do not know the code.
+BGP
+^^^
 
-Direct Sequence CDMA
-^^^^^^^^^^^^^^^^^^^^
+Border Gateway Protocol, v4 (BGPv4).
 
-* Code is called the *chip sequence*
-* The data is XORed with the chip sequence at the transmitter
-* The data is then XORed again with the chip sequence at the receiever
+BGP is essentially a Distance-Vector protocol, with extra bits added on.
 
-CDMA is the basis for 3G mobile technology, and GNSS/GPS also
+It provides another layer: the AS (Autonomous System). This identifies
+a network, and is purely administrative (not relevant to the data plane).
+
+The distance is defined as the number of AS's that the packet must traverse.
+This is a so-called *path vector*.
+
+The purpose of BGP is to enable *policy* to be applied.
+
+The Protocol
+""""""""""""
+
+OPEN
+    Sets up *sessions* between *peers*.
+
+UPDATE
+    Indicates withdrawn routes, shared attributes, advertised routes.
+
+Alternatives
+------------
+
+Source Routing
+    Let the source host decide the exact route that the packet should take.
+    This requires the host to know the network topology, and also has to be
+    trusted.
+
+Location-Based Routing
+    Use, for example, physical distance between routers to pick the best route
+    (using GPS).
+
+Map-Based
+    Build a detailed picture for parts of the network that are nearby, and
+    a less detailed picture for others parts. Basically a compromise between
+    LS and DV.
