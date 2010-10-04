@@ -67,10 +67,22 @@ It was first applied to the the early telephony network by a mathemetician
 called Erlang, and is still an issue today with MPEG encoding on digital TV
 networks.
 
-A Simple Stochastic Process
----------------------------
 
-If the expected number of occurrences in an interval is :math:`\lambda`, then
-the probability that there are exactly :math:`x` occurrences is equal to:
+Code Division Multiple Access (CDMA)
+------------------------------------
 
+Allows multiple users to coexist within the same frequency space, with minimal
+interference.
 
+Each user is assigned a unique code, which allows them to receieve the data
+being transmitted. It is very difficult to receive the signal (or indeed
+interfere with it) if you do not know the code.
+
+Direct Sequence CDMA
+^^^^^^^^^^^^^^^^^^^^
+
+* Code is called the *chip sequence*
+* The data is XORed with the chip sequence at the transmitter
+* The data is then XORed again with the chip sequence at the receiever
+
+CDMA is the basis for 3G mobile technology, and GNSS/GPS also
