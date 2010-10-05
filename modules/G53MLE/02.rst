@@ -1,68 +1,12 @@
 .. _G53MLE02:
 
-=================
-02 - Introduction
-=================
+================
+02 - Perceptrons
+================
 
-Motivating Problems
--------------------
+A perceptron is a type of Artificial Neural Network. It computes the sum of
+its weighted inputs (in the form of an n-dimentional vector), and passes the
+result to a hard-limit threshold function. It therefore outputs 1 if the
+value is higher than some threshold, and -1 otherwise.
 
-- Handwriting recognition
-- Fingerprint recognition
-- Face recognition
-
-Can we program machines to learn to do these tasks?
-
-Learning
---------
-
-Learning is defined by a computer program improving with experience.
-
-Handwriting Recognition Problem
--------------------------------
-
-- Recognise handwritten characters
-- Performance measured by **P**
-- Training by experience **E** (database of correctly classified characters)
-    - Prime the system with some experience, so that it can learn
-
-We can represent each hand-written character by using an 8x8 grid, and storing
-which cells in the grid are covered by the "ink", and which are not. This is
-called the *Feature Vector* (**X**).
-
-We combine this representation of the input with a representation of the
-correct character (**D**).
-
-Experience (**E**) is the combination of **X** with **D** (i.e. **E = (X,
-D)**).
-
-If, for example, the system could only represent 10 characters, then 5 could be
-represented as (0, 0, 0, 0, 0, 1, 0, 0, 0, 0).
-
-We then need to define a function **F** to map input **X** into the desired
-classification of the character.
-
-**F** will be a function of some adjustable parameters (or weights), which the
-learning system can modify or learn. The system will therefore adapt to the
-environment. **F(W, X) = D**.
-
-Learning
-^^^^^^^^
-
-When training the system, the function is run with the training data (and
-random weights), and the output is monitored. If the output is incorrect
-(according to the training data), then the weights are adjusted until it is
-correct.
-
-Once the learning is complete, the paramaters/weights are fixed. From this
-point on, an input is given and it's output is computed, but no adjustment is
-made (as the correct value is not known).
-
-Summary of Designing a Learning System
---------------------------------------
-
-#. Collect training data
-#. Represent the experience
-#. Choose a representation for the "black box"
-#. Learning (adjusting the weights)
-#. Use/test the system
+The perceptron also takes a bias, whose input is a constant of 1.
