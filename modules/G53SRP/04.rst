@@ -1,0 +1,15 @@
+.. _G53SRP:
+
+==========================
+04 - Programming with Time
+==========================
+
+Code has no reliable way to know how much time has passed. To facilitate this,
+computers are often fitted with internal clocks, based on an oscillating Quartz
+crystal. Also, external events can be used (such as radio clock 'ticks').
+
+The System Clock
+----------------
+
+The JVM exposes a system clock using ``System.currentTimeMillis()``, which is
+the number of milliseconds since 1st Jan 1970.

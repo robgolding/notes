@@ -1,0 +1,27 @@
+.. _G53SRP06:
+
+=========================================
+06 - Introduction to Real Time Scheduling
+=========================================
+
+Temporal Scopes
+---------------
+
+For a section of code, specify:
+
+* When it should start
+  * Release time - theoretical first time the process must start
+  * Max/min delay after the release time
+* When it must be completed by
+  * Deadline - time before which the process *must* finish
+  * Maximum elapsed time - time from release time to deadline
+
+Scheduling
+----------
+
+The scheduler then has to make sure that the tasks run in the correct way, so
+that each task is able to complete before it's deadline.
+
+This is usually done by assigning priorities to each task, and have the highest
+priority task on the CPU at all times. Priorities are usually assigned by
+giving the task with the shorted deadline the highest priority.

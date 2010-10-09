@@ -1,0 +1,13 @@
+.. _G53SRP05:
+
+=============================
+05 - Clocks and Times in RTSJ
+=============================
+
+RTSJ supports nanosecond-resolution times with the ``HighResolutionTime``
+class (though the clock in the computer probably won't be nanosecond
+granularity).
+
+It can be used for waiting, sleeping, etc. with high resolution.
+
+It also exposes ``AbsoluteTime`` and ``RelativeTime`` classes.

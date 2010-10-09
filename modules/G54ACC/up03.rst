@@ -1,0 +1,101 @@
+.. _G54ACCUP03:
+
+=============================
+IP & Up 03 - Transport Basics
+=============================
+
+The Transport Layer
+-------------------
+
+Process-to-process communication
+
+UDP
+    User Datagram Protocol - best effort, unordered, datagrams
+
+TCP
+    Transmission Control Protocol - Reliable, ordered, byte-stream (with
+    respect to the *process*, not the host
+
+Ports
+^^^^^
+
+Ports provide multiplexing of a host's network connection between processes
+
+::
+
+    (src IP, dst IP, src pt, dst pt, protocol)
+
+This 5-tuple uniquely identifies a *flow* on the internet
+
+0 - 1023
+    Well known, usually require root
+
+1024 - 49151
+    Registered, often out-of-date
+
+49152 - 65535
+    Dynamic/private/ephemeral ports
+
+User Datagram Protocol
+----------------------
+
+Very simple transport protocol, provides simple datagrams over IP packets. Also
+adds a *datagram checksum* and ports.
+
+The checksum gives some reliability, but it's not great.
+
+Transmission Control Protocol
+-----------------------------
+
+TCP is reliable, as data will be retransmitted if it is lost.
+
+It is also ordered, so data is guaranteed to arrive in the order it was sent.
+
+It provides a *byte stream*, so there is no need for the application to segment
+data. However, it is common to insert delimiters.
+
+There is a key problem here, however: the network is **asynchronous**. When
+should a packet be considered lost, as it may just be taking a long time to
+arrive. This means that the setting of lots of timers is essential.
+
+In summary, the asynchrony of the network and the bidirectional communication
+that TCP allows make the whole process very tricky.
+
+Reliability
+^^^^^^^^^^^
+
+Retransmit data when it gets lost. Three problems:
+
+* Detect the loss
+* Avoid loss due to host congestion
+* Avoid loss due to network congestion
+
+Detect loss via the sequence numbers:
+
+Sender and receiver send their own seqno's.
+
+The sender can then detect how far the receiver is through the stream.
+
+
+Timeouts
+^^^^^^^^
+
+How long should we wait to retransmit data?
+
+RTT
+    Round-trip time estimation (exponential average)
+
+RTO
+    Retransmission time-out: computed by standard deviation, and is rather
+    expensive to calculate.
+
+Flow Control
+^^^^^^^^^^^^
+
+The receiver needs to put the data it's receiving somewhere, and this is
+usually down to the operating system on the host. Buffer management is
+therefore required to allow the process that needs that data to access it.
+
+The receiver advertises it's unused buffer space in the ACK packet (awnd). This
+enables the transmitter to avoid sending so much that the receiver will be
+forced to drop it.

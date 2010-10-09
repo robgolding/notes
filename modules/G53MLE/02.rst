@@ -5,8 +5,38 @@
 ================
 
 A perceptron is a type of Artificial Neural Network. It computes the sum of
-its weighted inputs (in the form of an n-dimentional vector), and passes the
+its weighted inputs (in the form of an n-dimensional vector), and passes the
 result to a hard-limit threshold function. It therefore outputs 1 if the
 value is higher than some threshold, and -1 otherwise.
 
 The perceptron also takes a bias, whose input is a constant of 1.
+
+It is essentially a *classifier*, which classifies its input as either
+a **positive** or a **negative** instance.
+
+Feature Space
+-------------
+
+We can represent problems on a *feature space* in n dimensions.
+
+Problems that can be solved by dividing the feature space with a single
+straight line are called *linearly separable*. One perceptron can solve
+linearly separable problems.
+
+A simple example of a non-linearly separable problem is XOR.
+
+Training Algorithm
+------------------
+
+To train a perceptron, we must somehow discover the weights that will give the
+correct output for the given inputs.
+
+To do this, the following procedure is used:
+
+#. Set the weights to small random values (between -1 and 1)
+#. Present a training sample
+#. Update the weights
+#. Repeat for each training sample
+
+This process is repeated (presenting the set of samples repeatedly) until the
+error margin reaches an acceptable level.
