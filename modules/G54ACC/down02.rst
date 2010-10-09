@@ -69,7 +69,6 @@ It was first applied to the the early telephony network by a mathemetician
 called Erlang, and is still an issue today with MPEG encoding on digital TV
 networks.
 
-
 Code Division Multiple Access (CDMA)
 ------------------------------------
 
