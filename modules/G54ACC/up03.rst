@@ -76,7 +76,6 @@ Sender and receiver send their own seqno's.
 
 The sender can then detect how far the receiver is through the stream.
 
-
 Timeouts
 ^^^^^^^^
 
