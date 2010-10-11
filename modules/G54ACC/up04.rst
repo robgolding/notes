@@ -1,0 +1,100 @@
+===============================
+IP & Up 04 - Transport Advanced
+===============================
+
+Reliability and Performance
+---------------------------
+
+Achieving Reliability
+^^^^^^^^^^^^^^^^^^^^^
+
+Reliability can be achieved by retransmitting lost data - but how is this loss
+detected?
+
+Alternatively, the receiver could reconstruct missing data (from redundancy
+included in the other data), or re-request data it cannot reconstruct.
+
+Detecting Loss
+""""""""""""""
+
+Receiver can explicitly acknowledge every packet - Automatic Repeat Request
+(ARQ). This is pretty dumb and slow though (a packet takes a full RTT to reach
+the other end).
+
+Rate Control
+    Never send too fast for the network (but how to find appropriate rate?)
+
+Sliding Window
+    Acknowledge a "window" of bytes in one go. Need to determine window size.
+
+Go-back-N ARQ was used in the first attempt for TCP (pre-1988). This is where
+the sender goes back to the first loss, and transmits again from there. This
+wastes a lot of throughput if loss occurs.
+
+TCP Congestion Control
+----------------------
+
+First, the current parameters need to be determined. This means the window size
+for most TCPs, and can be estimated, or *actively probed*.
+
+**Additive-Increase** and **Multiplicative Decrease** is used. This allows, for
+example, for router buffers to empty when the network gets overloaded, as hosts
+back off exponentially, allowing the network to recover.
+
+In summary, the loss of a segment signals congestion on the network, which the
+sender can then react to in some way. The problem, however, is that detecting
+this loss takes a whole RTO.
+
+As a solution to this, Explicit Congestion Notification (ECN) can be used
+- where a router can mark packets with a TOS byte, to signify that it's buffers
+  are getting full.
+
+Multimedia
+----------
+
+TCP is not always useful, for example in multimedia where messages/frames are
+preferable to a byte stream. Reliability can cause untimely delivery in this
+case. Losing a frame is usually better than delaying all subsequent frames, to
+wait for that lost frame to be filled in. Instead, lost frames can be skipped,
+or even interpolated.
+
+Real Time Protocol
+^^^^^^^^^^^^^^^^^^
+
+RTP encapsulates media over UDP. It also adds sequencing and time stamping, but
+has no reliability or QoS.
+
+RTP also adds a control channel (RTCP), to allow the receiver to report
+statistics etc. while the media is being transferred.
+
+TCP Friendliness
+^^^^^^^^^^^^^^^^
+
+The fact that RTP uses UDP means that the network may be flooded, which will
+cause other TCP streams to report congestion/loss, while the UDP data will
+continue to send data at the same rate. The result can be that the media
+transfer eventually takes over completely.
+
+The solution to this is to use an equation based on the RTT and the observed
+loss rate, to set how fast the transmitter should be transmitting::
+
+    T = avg(wnd)/RTT
+    p(drop) = 2/(3*w2) => w = sqrt(2/3p)
+    Thus T(p) ~= (1/RTT)*sqrt(3/2p)
+
+Structured Stream Transport
+---------------------------
+
+With HTTP/1.1, multiple requests can be made over a single TCP connection. TCP,
+however, imposes total order on the data - so the client may be waiting for an
+unimportant, earlier request to be fulfilled, before it receives data for
+a later, important request.
+
+As an alternative, "substreams" can be created, to allow the hosts to
+communicate on separate channels, within the same TCP connection.
+
+Summary
+-------
+
+Achieving both reliability *and* performance is very hard. There are many
+subtle interactions, particularly if the scheme is general.
