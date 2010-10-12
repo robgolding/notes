@@ -1,0 +1,77 @@
+.. _G53MLE03:
+
+==========================
+03 - ADLINE and Delta Rule
+==========================
+
+.. Note:: Revise differentiation
+
+Adaptive Linear Element (ADLINE)
+--------------------------------
+
+In contrast to the Perceptron, ADLINE simply outputs the weighted sum
+*directly* (rather than passing it through the hard limiting function).
+
+When the problem is not linearly separable, the perceptron will fail to
+converge. ADLINE, however, can overcome this by finding a "best fit"
+approximation to the target.
+
+Error Function
+^^^^^^^^^^^^^^
+
+The error function of ADLINE is defined differently to the Perceptron:
+
+.. math::
+
+    E(W) = \frac{1}{2} \sum_{k=1}^{K} (d(k) - y(k))^2
+
+where :math:`y(k) = W \cdot X(k)`
+
+The smaller the error :math:`E(W)` is, the closer the approximation is - so the
+aim becomes to minimize it.
+
+The Gradient Descent Rule
+-------------------------
+
+Intuitively:
+
+.. math::
+
+    w(new) \leftarrow w(old) - \Delta sign(\frac{\delta E}{\delta w} | w=w(old))
+
+or more formally:
+
+.. math::
+    \nabla E (W) = \left[ \frac{\delta E}{\delta w_1}, \frac{\delta E}{\delta w_2}, ... , \frac{\delta E}{\delta w_n} \right ]
+
+This rule allows the error to be minimised to a **local minimum**. This is not
+a problem when the function has only one minimum, but if it has more (i.e.
+a quartic equation), then this will only find the lowest point closest to the
+starting point.
+
+The gradient training rule is:
+
+.. math::
+
+    W \leftarrow W - \eta \nabla E(W)
+
+    w_i \leftarrow w_i - \eta \frac{\delta E}{\delta w_i}
+
+So to update the weights using the gradient descent rule:
+
+.. math::
+
+    w_i \leftarrow w_i + \eta \sum_{k=1}^{K} (d(k) - y(k))x_i(k)
+
+The weights can be updated in *batch mode* (accumulate gradients over all
+samples first, then update weights) or *online mode* (stochastic mode,
+calculates the gradient for each sample and updates the weights each time).
+
+Termination of Training
+-----------------------
+
+The training usually terminates either:
+
+* When a pre-set number of training epochs is reached
+* When the error is smaller than a pre-set value
+
