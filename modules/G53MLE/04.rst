@@ -1,0 +1,49 @@
+.. _G53MLE04:
+
+===========================
+04 - Multilayer Perceptrons
+===========================
+
+Limitations of Single Layer Perceptrons
+---------------------------------------
+
+A single layer perceptron can only express a linear decision surface. To
+overcome this limitation, we must build a multilayer network, which is able to
+represent a highly non-linear decision surface.
+
+Multilayer Networks
+-------------------
+
+Multilayer networks consist of an *input* layer, a *hidden* layer, and an
+*output* layer. Each layer consists of a number of *units*.
+
+Each unit has a number of weighted input (like a Perceptron). These weighed
+inputs are summed in the same way, but the sum is then passed through an
+*activation function* - which is a non-linear *sigmoid* function that ranges
+from :math:`0 - 1` - before being output.
+
+The input units in a network such as this do not use an activation function.
+They simply distribute (or "fan out") their input directly to the units in the
+next layer.
+
+Sigmoid Function
+----------------
+
+:math:`\sigma(x)` is the sigmoid function:
+
+.. math::
+
+    \frac{1}{1+e^{-x}}
+
+This function has the useful property that it's derivative is equal to:
+
+.. math::
+
+    \frac{\delta \sigma(x)}{\delta x} = \sigma(x)(1 - \sigma(x))
+
+We can therefore use gradient descent to train the network.
+
+Back-Propagation Algorithm
+--------------------------
+
+

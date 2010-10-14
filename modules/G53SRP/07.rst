@@ -1,0 +1,83 @@
+.. _G53SRP03:
+
+=============================
+07 - Event-Driven Programming
+=============================
+
+Events
+------
+
+Events are things which happen. They therefore have a *time*, or a *temporal
+context*. Events occur (effectively or actually) independently from the execution of the
+program (at any time).
+
+An event handler is a package of code for responding to that event, and is
+typically also a temporal scope.
+
+Event Despatching
+^^^^^^^^^^^^^^^^^
+
+Events can be *polled* for, either explicitly or with OS support. If user code
+is used, the polling frequency needs to be chosen carefully to balance idle
+load with responsiveness.
+
+Events and Timers
+^^^^^^^^^^^^^^^^^
+
+Events can be caused by timers, where the event is the "firing" of the timer.
+
+Timers can be "one-shot", or repeated (i.e. periodic).
+
+Java provides two types of timers: ``java.util.Timer`` and
+``javax.swing.Timer``. Swing is **not** thread-safe, so ``util`` timers
+cannot be used to call swing events. Instead ``javax.swing.invokeLater`` should
+be used, or an actionListener etc.
+
+Other forms of Event Despatching
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Events can be asynchronously notified, which is similar to exception handling
+but is not signalled by the thread that handles it (and is therefore not
+related to current thread activity). In this case, the interrupted activity may
+or may not be resumed.
+
+Alternatively, events can be explicitly scheduled like a thread.
+
+RTSJ Asynchronous Events
+------------------------
+
+In RTSJ, asynchronous events are data-less occurrences. The event therefore
+carries **no** information (unlike in Swing).
+
+``AsyncEvent`` instances represent the event (the **type** of event, not the
+occurrence of it).
+
+``AsyncEventHandler`` instances can be registered with an ``AsyncEvent``
+instance.
+
+The handler is **released** when the event fires. The RTSJ scheduler schedules
+the handlers in the same way that it schedules real-time threads.
+
+An ``AsyncEvent`` can be explicitly fired by another activity with the
+application (by calling it's ``fire()`` method).
+
+RTSJ POSIXSignalHandler
+-----------------------
+
+Required on POSIX platforms only. Allows POSIX signals to work like
+``AsyncEvents``, so programs can catch POSIX signals (i.e. SIGINT), and respond
+to them.
+
+RTSJ External Events
+--------------------
+
+An ``AsyncEvent`` may be triggered by a low-level system event (such as an
+interrupt). The event is then **bound** to the named **happening** using
+``bindTo``. The JVM will then trap the even, and call ``fire()`` on the
+``AsyncEvent``.
+
+RTSJ Timer Events
+-----------------
+
+Comparable to ``java.util.Timer``, but they extend ``AsyncEvent``. Therefore
+threading is handled by the realtime VM.
