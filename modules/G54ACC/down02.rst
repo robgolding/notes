@@ -60,14 +60,21 @@ luck, delay etc.).
 Randomness
 ^^^^^^^^^^
 
-To calculate the probabiltiy that more than 10 users talk at once (and hence
+To calculate the probability that more than 10 users talk at once (and hence
 the probability that we loose packets), me must understand the random
 transmission of packets (or the *stochastic* process). This has been a research
 topic for the last 30 years, and is still so.
 
-It was first applied to the the early telephony network by a mathemetician
+It was first applied to the early telephony network by a mathematician
 called Erlang, and is still an issue today with MPEG encoding on digital TV
 networks.
+
+Managing Queues
+^^^^^^^^^^^^^^^
+
+Queueing theory usually involves a Poisson process, though it is difficult to
+apply this to network queues, as they typically have a dependency on the hosts
+that are communicating, or the network itself.
 
 Code Division Multiple Access (CDMA)
 ------------------------------------
@@ -75,15 +82,23 @@ Code Division Multiple Access (CDMA)
 Allows multiple users to coexist within the same frequency space, with minimal
 interference.
 
-Each user is assigned a unique code, which allows them to receieve the data
+Each user is assigned a unique code, which allows them to receive the data
 being transmitted. It is very difficult to receive the signal (or indeed
 interfere with it) if you do not know the code.
+
+When data is transmitted, it is "hopped" around on different frequencies, the
+order of which is determined by the code. This makes it very difficult to
+intercept transmissions, and also hard to jam them (as you would have to jam
+*all* the frequencies that are being used, which is very difficult).
 
 Direct Sequence CDMA
 ^^^^^^^^^^^^^^^^^^^^
 
 * Code is called the *chip sequence*
 * The data is XORed with the chip sequence at the transmitter
-* The data is then XORed again with the chip sequence at the receiever
+* The data is then XORed again with the chip sequence at the receiver
 
-CDMA is the basis for 3G mobile technology, and GNSS/GPS also
+CDMA is the basis for 3G mobile technology, and GNSS/GPS also. It allows
+multiple data streams to be encoded onto one frequency, which can all then be
+extracted with their unique chip sequences. This is how GPS transmitters
+& receivers work.
