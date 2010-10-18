@@ -1,0 +1,168 @@
+.. _G54ACCUP05:
+
+=======================
+IP & Up 05 - Connecting
+=======================
+
+Address Shortages
+-----------------
+
+IPv4 only support 32-bit addresses, and 95% of these have been allocated
+already. IPv6 supports 123-bit addresses, but moving over will be a huge task.
+
+So in the meantime...
+
+Network Address Translation
+---------------------------
+
+RFC1918 defines addresses that should never be externally routed:
+
+* 192.168/16
+* 172.16/12
+* 10/8
+
+NAT uses private addresses internally, and maps these onto a small set of
+externally routable addresses. It uses source ports to distinguish connections,
+and has to rewrite the headers of outgoing/incoming packets.
+
+Layer Violation
+---------------
+
+This refers to information "leaking" from one layer to another. It is generally
+considered poor form, but is sometimes useful for extra features or
+performance.
+
+NAT often causes this to explode, however - as in the common case of FTP where
+addresses are used as host identifiers (incorrectly).
+
+It also makes IP fragmentation difficult.
+
+Session Traversal Utilities for NAT
+-----------------------------------
+
+Client attempts to characterise NAT behaviour using a third-party server on the
+outside.
+
+Interactive Connectivity Establishment
+--------------------------------------
+
+Commonly used with Voice-on-IP protocols such as SIP/SDP.
+
+Uses STUN (or TURN, etc.) to determine and select from a list of "candidate
+addresses", to allow the packets to flow between the hosts correctly.
+
+Middleboxes
+-----------
+
+NAT is an example of a (transparent) middlebox. There are others, however:
+
+* Firewalls
+* Proxies
+* Caches
+
+They can often provide useful services, but can also be a massive pain. They
+are usually very complex, and sometimes buggy and unreliable. They also may
+have incomplete protocol support.
+
+Naming
+------
+
+IP addresses are not particularly human-readable (and not always the
+appropriate granularity), so naming maps names to IP addresses.
+
+The original naming system was the hosts file (``/etc/hosts``). This file was
+initially transferred to all hosts via FTP. This is simple, but not very
+automatic or scalable.
+
+DNS
+^^^
+
+Client-Server protocol for retrieving IP addresses for a name. Usually uses UDP
+for queries, but can also use TCP. TCP is also used for bulk-transfers between
+servers (zone transfers).
+
+The namespace is divided into *zones*, where the TLDs are usually
+professionally managed. The *root servers* know how to get everywhere.
+
+A name can have multiple IPs associated with it (for round-robin load
+balancing, for example).
+
+Name Service
+^^^^^^^^^^^^
+
+The Name Service is the service built on top of the DNS protocol.
+
+TLDs are operated by registrars, who delegate sub-domains to other registrars,
+on and on down the hierarchy.
+
+Eventually, a customer rents a subdomain or a name.
+
+Usually primary/secondary servers are used, so that network faults don't kill
+the entire operation.
+
+DNS is a very common Single Point of Failure.
+
+Queries
+^^^^^^^
+
+Queries are either *recursive* or *iterative*.
+
+**Recursive**
+    The server you query asks the next one on your behalf, until the correct
+    answer is recieved, when it is passed down the chain to you.
+
+**Iterative**
+    You ask server A, who may say "don't know, try server B", and then you
+    query server B etc..
+
+A server is *authoritative* if it is the official server for a domain/zone. To
+find the authoritative server requires a query to the root servers, which means
+the load on these servers is very high.
+
+Record Types
+^^^^^^^^^^^^
+
+**CNAME**
+    Name -> Canonical name
+**A**
+    Name -> Number
+**PTR**
+    Name (or number) -> Name
+**NS**
+    Domain -> Authoritative name server
+**MX**
+    Domain -> Mail exchange
+
+Security
+^^^^^^^^
+
+DNS is pretty insecure:
+
+* Cache poisoning (bad data can stick around in caches for a long time)
+* Man-in-the-middle attack (recursive/iterative queries create this problem)
+* Name spoofing (similar names, easy mistake to make!)
+
+Quality of Service
+------------------
+
+QoS is used when demand exceeds capacity on the network.
+
+It has been retrofitted into the internet in multiple ways:
+
+* Integrated Services (IntServ)
+    * QoS information is requested when the connection is setup, and allows the
+      specification of bandwidth/latency required. Does not work well on the
+      internet!
+    * Routers perform Connection Admission Control - so the routers can
+      actually refuse to allow a connection if it requests too much bandwidth,
+      or too little latency for example.
+* Differentiated Services (DiffServ)
+    * Routers can be configured to treat different *types* of traffic
+      differently. Packets can be tagged with a "class", to categorize them so
+      the router knows how to treat them.
+
+Neither of these, however, are very widely used. Partly due to political
+issues (and IntServ is a nightmare to implement!). Also, because TCP does
+a good job of keeping things going, even when the bandwidth/latency is
+fluctuating.
+
