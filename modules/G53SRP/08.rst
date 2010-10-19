@@ -1,0 +1,30 @@
+.. _G53SRP08:
+
+==============================================
+08 - RTSJ Support for Scheduling and Deadlines
+==============================================
+
+Scheduler
+---------
+
+RTSJ has a ``Scheduler`` class, which can be used to schedule tasks. The
+default scheduler is a priority-based scheduler, with a single fixed priority
+assigned to each real-time thread by default.
+
+The default scheduler is *fully pre-emptive* (higher priority threads that
+become runnable immediately pre-empt lower priority threads).
+
+It also does not time-slice threads of equal priority (as this is inefficient).
+
+Schedulable Properties
+----------------------
+
+``SchedulingParameters`` (subclass) is a scheduler-specific thread information
+(i.e. the priority).
+
+``ReleaseParameters`` (subclass) stores temporal characteristics of the thread
+(release time, period, deadline etc.)
+
+``MemoryParameters``
+
+``ProcessingGroupParameters``
