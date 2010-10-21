@@ -46,4 +46,36 @@ We can therefore use gradient descent to train the network.
 Back-Propagation Algorithm
 --------------------------
 
+.. math::
 
+    E(W) = \frac{1}{2}\sum_{k=1}^{K}(d(k) - y(k))^2
+    
+    \frac{\delta E}{\delta w_i} = -\sum_{k=1}^{K}((d(k)
+    - y(k))y(k)(1-y(k))x_i(k))
+
+Expressive Capabilities
+-----------------------
+
+Every boolean function can be represented by a network with a single hidden
+layer (though it might require an exponential number of hidden units).
+
+Every bounded continuous function can be approximated with arbitrarily small
+error, by a network with one hidden layer.
+
+Any function can be approximated to arbitrary accuracy by a network with two
+hidden layers.
+
+Overfitting, Generalization and Stopping Criterion
+--------------------------------------------------
+
+We can continue training until the error ``E`` falls below some predefined
+value.
+
+This is not a good idea, however, as backpropagation has a tendency to
+*overfit* the training examples, at the cost of decreasing generalization
+accuracy over the unseen examples.
+
+Alternatively, we can use a *validation set*, along side the training set. This
+validation set is used to test the network on unseen data, so the training
+process can be stopped when the error over the validation set falls below
+a predefined value.
