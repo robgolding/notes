@@ -1,0 +1,106 @@
+.. _G53SRP09:
+
+================================
+09 - Asynchronous Events in RTSJ
+================================
+
+AsyncEventHandler
+-----------------
+
+Each ``AsyncEventHandler`` has its own "Arrival Time Queue", (or the
+Release Time Queue). Each time to associated event is fired, that time is added
+to the arrival time queue (subject to arrival time queue and minimum
+inter-arrival time behaviour).
+
+The system will schedule a call to ``handleAsyncEvent()`` for each time in the
+queue, each having its own deadline & cost.
+
+The number of times in the queue is visible in the API as "pending fire count"
+(i.e. how many times the event has been fired and not yet handled, excluding
+any currently running release).
+
+Event handler code can check and manipulate the queue (e.g. to remove an
+additional release). Usually, however, ``AperiodicParameters`` is used to set
+arrival time queue parameters instead.
+
+Periodic, Aperiodic and Sporadic Events
+---------------------------------------
+
+A realtime event can be classified as:
+
+* **Periodic** - occurring at some fixed interval
+* **Aperiodic** - occurring with no temporal pattern
+* **Sporadic** - occurring from time to time, but not "too" often
+
+This must be known to assess the system's schedulability.
+
+Aperiodic Events
+----------------
+
+An aperiodic event can occur at any time. Successive releases may occur
+arbitrarily close together. This means that the CPU requirement is
+*potentially* infinite, so we can never guarantee to meet deadlines with
+aperiodic events.
+
+Releases occurring before the previous release completes are therefore queued.
+There are various parameters to control this queue's behaviour that can be set.
+
+Arrival Time Queue Length
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``EventHandler`` arrival time queue has initial length specified by
+``AperiodicParameters``. Therefore a queue with length 0 (and a queue behaviour
+EXCEPT, IGNORE or REPLACE) will never fire.
+
+Otherwise, new firings are added to empty slots in the queue. If the queue is
+full, then the action depends on the arrival time queue behaviour:
+
+* **EXCEPT**: Throw ``ArrivalTimeQueueOverflowException``
+* **IGNORE**: Ignore the firing, queue remains unchanged
+* **REPLACE**: Replace the last time in the queue with the new one
+* **SAVE**: Extend the queue (this is the default behaviour)
+
+Sporadic Events
+---------------
+
+Sporadic events are similar to aperiodic events, but also have a minimum
+inter-arrival time (MIT). This is basically a "maximum rate", and is checked at
+run-time.
+
+MIT is used for analysis and scheduling - the worst-case equivalent is
+a periodic event with the MIT as the period.
+
+Sporadic events also have arrival time queues (subclass of
+``AperiodicParameters``), which includes the queue length and associated queue
+overflow behaviour, plus the additional MIT constraint (and the associated
+violation behaviour below).
+
+Minimum Interarrival Behaviours
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* **EXCEPT**: Throw ``MITViolationException``
+* **IGNORE**: Ignore the firing altogether
+* **REPLACE**: Replace the last time in the queue
+* **SAVE**: Add to queue (and extend if required)
+    * Also increase the time to T+MIT for starting the handler, but not for the
+      deadline checking (ugly hack!)
+
+More on Timers
+--------------
+
+Timers are a subclass of ``AsyncEvent``, and can be "active" and/or "enabled".
+
+Active
+    The clock is actually ticking.
+Enabled
+    The event will fire when the timer reaches 0.
+
+A ``OneShotTimer`` becomes inactive and disabled when it fires (but can be
+started up again by calling ``start()``.
+
+BoundAsyncEventHandler
+----------------------
+
+The same as an ``AsyncEventHandler``, but is permanently associated with
+a ``RealTimeThread``. This avoids any additional delay in assigning a fired
+event to a thread.
