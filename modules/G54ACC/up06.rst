@@ -1,0 +1,186 @@
+.. _G54ACCUP06:
+
+=========================
+IP & Up 06 - Applications
+=========================
+
+Higher Layers
+-------------
+
+Session & Presentation
+^^^^^^^^^^^^^^^^^^^^^^
+
+Session
+    Open/close semi-permanent dialogue (SSH, etc.)
+    Floor control via. e.g. RTCP
+Presentation
+    Conversion of data encodings
+    ASCII <--> Unicode UTF-8 or Unix (LF) <--> MS-DOS (CRLF)
+
+This isn't traditionally part of the TCP/IP stack. The functions still exist,
+but they aren't specifically layered. They are generally lumped together in the
+"application layer".
+
+HTTP
+----
+
+HyperText Transfer Protocol, evolved through 3 versions: 0.9, 1.0, 1.1.
+A client-server request-response protocol.
+
+Actors:
+
+* Objects, named via URIs (URLs)
+* Clients (or user agents), retrieve objects from
+* Servers, which store/generate objects
+* Proxies (which sometimes get in the way!)
+
+Objects
+^^^^^^^
+
+Used to be HTML pages, but now may be just about anything (page, image,
+endpoint, computation, etc.)
+
+Labelled via a Uniform Resource Identifier (URL in the web):
+
+    scheme://host:port/path/to/resource/?query
+
+Requests
+^^^^^^^^
+
+HTTP/1.0:
+* Connect on TCP port 80
+* Issue request method (GET, POST, HEAD)
+* Issue headers
+* Process result
+
+Responses
+^^^^^^^^^
+
+* Status line
+    * Response headers (meta data, etc.)
+* Content
+    * Generated/read from file etc.
+    * Stateless (no server side link between requests)
+
+Handling State
+^^^^^^^^^^^^^^
+
+Necessary for some applications (e.g. shopping carts, preferences etc.).
+
+This is left for the client to do, to avoid server scaling issues (though this
+needs care with authentication).
+
+Achieved with cookies.
+
+Network Usage
+^^^^^^^^^^^^^
+
+One connection per request is quite problematic and inefficient if objects are
+retrieved one at a time.
+
+In HTTP/1.1, persistent connections were added so multiple requests can be made
+on a single connection (though this still leads to scheduling issues).
+
+XMPP
+----
+
+**Extensible Messaging & Presence Protocol.**
+
+Acts as the basis for Jabber and Google Talk.
+
+The core provides XML streaming:
+* Messages
+* Presence
+
+Extensions for HTTP binding, real-time media, multi-user chat and *loads* more.
+
+Actors
+^^^^^^
+
+*Clients* connect to..
+
+*Servers*, which may interconnect directly.
+
+Servers are networked and can route messages between themselves. These are
+typically multiplexed over a single TCP connection.
+
+*Gateways* connect foreign clients to an XMPP network (e.g. Skype <-> Google
+talk bridge).
+
+Address format is JID: ``node:domain/resource`` (Jabber ID).
+
+Security is provided via TLS.
+
+Protocol
+^^^^^^^^
+
+Exchange XML streams (multiple XML stanzas encapsulated in a stream).
+
+Three stanzas defined:
+
+* message (push information)
+* presence (express availability and negotiate subscriptions)
+* iq (request response)
+
+BOSH
+^^^^
+
+**Bi-directional Streams over Synchronous HTTP.**
+
+A firewall-friendly protocol which emulates a long-lived connection by
+a sequence of request-responses over HTTP. Also offers free compression as most
+servers support Gzip.
+
+Radically Different Protocols
+-----------------------------
+
+P2P
+^^^
+
+What if the server is a bottleneck? This can be due to CPU, network, or even
+management issues.
+
+As an alternative P2P protocols can be used, which do not need a single central
+point. These are often self-organising, to reduce the amount of configuration
+requred.
+
+They often provide distributed hash table abstraction, which usually scales as
+:math:`N.log(N)` with a network size :math:`N`.
+
+BitTorrent
+^^^^^^^^^^
+
+Distributes load away from a single source (approximately proportional to
+popularity).
+
+A file is divided into pieces, which are then obtained separately. This is done
+in a random order, trying to keep the file *live*. Each piece has a hash to
+provide integrity.
+
+The torrent descriptor file is made available to a *seed*. The *tracker* knows
+who is participating in a torrent.
+
+Common Issues
+"""""""""""""
+
+Flash crowds, angry netadmins, no anonymity, validity of metadata and leeching
+are all common problems with BT and other P2P schemes. What are the incentives
+for peers to share?
+
+Often the behaviour of a network will change drastically if P2P applications
+are introduced, as all previous trends are thrown out the window!
+
+Active Networks
+---------------
+
+The idea behind *Active Networks* is that the packets are not **passive** (just
+forwarded etc.), they are considered as a piece of code. The router would then
+execute that code (perhaps in the packet header). It's an interesting research
+idea, but never really took off.
+
+Summary
+-------
+
+* In the IP stack, session and presentation layers are generally subsumed into
+  the Application Layer.
+* Two widely used and interesting application protocols are HTTP and XMPP.
