@@ -1,0 +1,52 @@
+.. _G53SRP10:
+
+============================
+10 - Resource Sharing Issues
+============================
+
+Resource Sharing
+----------------
+
+Locking a resource means blocking other threads access to that resource.
+
+Lower priority process locking a resource shared with a higher-priority process
+delays it.
+
+Priority Inversion
+^^^^^^^^^^^^^^^^^^
+
+* P3 (lowest priority) holds lock
+* P1 (highest priority) is blocked waiting for lock
+* P2 (medium priority) executes
+
+This leads to low priority processes arbitrarily delaying high priority
+processes, which is not at all ideal.
+
+Priority Inheritance
+^^^^^^^^^^^^^^^^^^^^
+
+Dynamically adjust the priority of a process holding a lock:
+
+* Simple priority inheritance
+    * Set to maximum priority of all processes currently waiting for lock
+* Priority ceiling emulation
+    * Set to maximum priority of all processes that ever acquire lock
+
+Simple priority inheritance prevents priority inversion, and limits the
+blocking delay.  Also, it requires no additional information about the program
+in advance.
+
+Priority ceiling emulation is easier to implement, but requires input from the
+programmer (or program analysis) in advance, to specify what priority to
+associate with each lock or resource.
+
+RTSJ uses simple priority inheritance by default. Priority ceiling emulation
+*may* also be available.
+
+Wait-Free Interactions
+----------------------
+
+An alternative to locks and blocking:
+
+Interactions from a (e.g. high priority) thread *fail* rather than block. This
+negates the risk of delaying the high priority thread.
