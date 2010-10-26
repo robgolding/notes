@@ -1,0 +1,54 @@
+.. _G53MLE06:
+
+===================================
+06 - K-Nearest Neighbour Classifier
+===================================
+
+Objects can be represented as a point in the feature space. Therefore, two
+objects can be "close" to each other in this feature space, by considering the
+Euclidean distance between the two points - these can be thought of as
+*neighbours*.
+
+.. math::
+
+    D(i, j) = \sum_{k=1}^{n} (x_k(i) - x_k(j))^2
+
+Though the actual distance should be the square-root of this value, we use
+:math:`D`, simply to represent the *concept* of distance.
+
+Nearest Neighbour
+-----------------
+
+We can now use the distance formula (or some other distance measure, such as
+the *Manhattan Distance*) to find the *nearest neighbour* to a point in the
+feature space.
+
+**Algorithm:**
+
+    Given a test point :math:`X`:
+
+    * Find the :math:`K` nearest training points to :math:`X` (where :math:`K`
+      is some positive integer)
+    * Denote these as a set of (point, distance) pairs;
+    * To identify the class of :math:`X`, find :math:`Y`, the most common class
+      in the set. :math:`
+
+The complexity, however, grows linearly with the number of samples already in
+the data set - as we have to calculate the distance from :math:`X` to *every*
+other point in the feature space, before we can be sure that we have the
+closest neighbours.
+
+Picking :math:`K`
+-----------------
+
+To pick the best K, we use N fold cross validation, to pick K to minimize the
+cross validation error:
+
+For each N training example:
+ * Find it's K nearest neighbours
+ * Make a classification based on these K neighbours
+ * Calculate the classification error
+ * Output average error over all examples
+
+Then, use the K that gives the lowest average error over the N training
+samples.
