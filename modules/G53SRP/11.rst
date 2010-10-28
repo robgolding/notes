@@ -1,0 +1,20 @@
+.. _G53SRP11:
+
+=============================
+11 - Realtime Threads in RTSJ
+=============================
+
+``RealtimeThread`` extends from ``java.lang.Thread``, and implements
+``javax.realtime.Schedulable``. It also *has* a ``javax.realtime.Scheduler``.
+
+There is also a ``NoHeapRealtimeThread`` which (surprise) doesn't use the heap.
+
+RealtimeThread Properties
+-------------------------
+
+As with ``AsyncEventHandler`` (because it is ``Schedulable``):
+
+* ``SchedulingParameters``
+* ``ReleaseParameters``
+* ``MemoryParameters``
+* ``ProcessingGroupParameters``
