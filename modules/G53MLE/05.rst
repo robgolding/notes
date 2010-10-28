@@ -1,0 +1,102 @@
+.. _G53MLE05:
+
+======================
+05 - Bayesian Learning
+======================
+
+Probability
+-----------
+
+There is a lot of uncertainty in the world, which is what 30 years of AI
+research has "danced" around.
+
+Discrete Random Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:math:`A` is a boolean-valued random variable if :math:`A` denotes an event and
+there is some uncertainty as to whether :math:`A` occurs.
+
+.. note:: e.g. A = "the US president in 2023 will be male"
+
+We write :math:`P(A)` as "the fraction of possible worlds in which  :math:`A`
+is true (where the area of the event space of *all* possible worlds is
+:math:`1`.
+
+Axioms of Probability Theory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. math::
+
+    0 \leq P(A) \leq 1
+
+    P(true) = 1  ~~~~~~  P(false) = 0
+
+    P(A \vee B) = P(A) + P(B) - P(A \wedge B)
+
+Theorems
+^^^^^^^^
+
+.. math::
+
+    P(A) = P(A \wedge B) + (A \wedge \sim B)
+
+If :math:`A` can take on exactly one value out of :math:`K` values (a
+multi-valued random variable):
+
+.. math::
+
+    P(A=v_i \wedge A=v_j) = 0 ~~~ if i \neq j
+
+    P(A=v_i \vee A=v_j \vee ... \vee A=v_k) = 1
+
+Conditional Probability
+^^^^^^^^^^^^^^^^^^^^^^^
+
+:math:`P(A|B)` is the fraction of worlds in which :math:`B` is true that also have
+:math:`A` true. This can also be read "the probability of :math:`A` **given**
+:math:`B`.
+
+
+.. math::
+
+    P(H) = 1/10
+
+    P(F) = 1/40
+
+    P(H|F) = 1/2
+
+    P(H|F) = \frac{P(H \wedge F)}{P(F)}
+
+Bayes' Rule
+-----------
+
+Bayes wrote this rule in a paper about 200 years ago. Genius!
+
+.. math::
+
+    P(A|B) = \frac{P(A \wedge B)}{P(B)} = \frac{P(B|A) P(A)}{P(B)}
+
+Bayesian Learning
+^^^^^^^^^^^^^^^^^
+
+To apply Bayes' rule to machine learning, we use some different variable names:
+
+.. math::
+
+    P(h|x) = \frac{P(x|h)P(h)}{P(x)}
+
+Where:
+
+:math:`x`
+    The data (i.e. the 4 inputs in the Iris data set)
+:math:`h`
+    The hypothesis/model (i.e. the *class* in the Iris data set)
+:math:`P(h)`
+    A prior belief (probability of hypothesis :math:`h` before seeing any data)
+:math:`P(x|h)`
+    Probability of the data if the hypothesis :math:`h` is true.
+:math:`P(x) = \sum_{h}^{~} P(x|h)P(h)`
+    Data evidence (marginal probability of the data)
+:math:`P(h|x)`
+    Posterior probability of the hypothesis :math:`h` after having seen the
+    data :math:`x`.
