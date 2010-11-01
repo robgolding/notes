@@ -1,0 +1,125 @@
+.. _G54ACCUP07:
+
+==================================
+IP & Up 07 - IP Network Management
+==================================
+
+What is Network Management?
+---------------------------
+
+Computer networks are considered to have three operating timescales:
+
+* Data: packet forwarding (microseconds, milliseconds)
+* Control: flows/connections (seconds, minutes)
+* Management: aggregates, networks (hours, days)
+
+Abstractions
+------------
+
+ISO FCAPS (functional separation):
+
+Fault
+    Recognize, isolate, correct & log
+Configuration
+    Collect, store & track
+Accounting
+    Collect statistics, bull users & enforce quotas
+Performance
+    Monitor trends, set thresholds & trigger alarms
+Security
+    Identify, secure & manage risks
+
+TMN EMS (administrative separation):
+
+Telecommunications Management Network
+Element Management System
+
+* network element management
+* element management
+* network management
+* service management
+* business management
+
+These both attempt to model general communication networks, and tend to be
+quite abstract and tedious.
+
+Basic need-to-know requirements:
+
+1. What should be happening?
+2. What is happening?
+3. What shouldn't be happening?
+4. What will be happening?
+
+IP Network Components
+---------------------
+
+1. Buy or lease routers ($1 or $2m for a new & populated backbone router!)
+2. Buy or lease fibre (wayleaves cost lots!)
+3. Connect them together
+4. Configure routers
+5. Configure end-systems
+
+Router Flavours
+^^^^^^^^^^^^^^^
+
+Core
+    OC-12 (622Mbps) and up (to OC-768 ~= 40Gbps)
+    Big and fast, but expensive
+    HFRL 1.2Tbps each, with up to 72 interconnected giving 92Tbps
+Transit/Peering links
+    OC-3 and up
+    ACLs, full-on BGP, uRPF and accounting
+Customer Facing
+    Frame relay/ATM
+    Same feature set as transit routers, but with fancy queues etc.
+Broadband Aggregator
+    High scalability: sessions, ports, reconnections etc.
+Customer-premises (CPE)
+    Maybe 100Mbps
+    NAT, DHCP, firewall, wireless, VoIP etc.
+    Low cost and low end, maybe just software on a PC
+
+Network Design Constraints
+--------------------------
+
+Business
+    Backwards compatibility, who to connect to, peering etc.
+Technology
+    Power (directly i.e. 24x7 operation and indirectly i.e. cooling)
+    Port density vs. bandwidth
+    Software reliability
+    Hardware/software capability
+Connectivity/resiliency
+    "All core routers connect to at least 2 other core routers"
+    "All edge routers connect to at least 2 core routers"
+
+Network Management Protocols
+----------------------------
+
+ICMP
+^^^^
+
+Internet Control Message Protocol - IP Protocol #1.
+
+A variety of control messages i.e. PING.
+
+Traceroute
+^^^^^^^^^^
+
+Sends UDP packets with increasing TTL values. Compliant IP host must respond
+with ICMP "time exceeded". Triggers each host along the path.
+
+SNMP
+^^^^
+
+Protocol to manage information tables at devices. Provides get, set, trap and
+notify operations.
+
+Complexity is mostly in the MIB design.
+
+IPFIX
+^^^^^
+
+IETF working group. Export of flow based data out of IP network devices.
+
+Statistics reporting etc.
