@@ -1,0 +1,85 @@
+.. _G53SRP12:
+
+===============================
+12 - Designing Realtime Systems
+===============================
+
+Levels of Notation
+------------------
+
+Informal
+    For example natural language. Broadly understood but ambiguous.
+Structured
+    e.g constrained graphical representations. Well defined, but not open to
+        analysis or manipulation.
+Formal
+    Methods with mathematical basis. Precise, open to analysis including
+    verification. Requires specialise notations & skills.
+
+There is a trend in realtime systems to use formal notation, due to the
+importance of the specification.
+
+Design Methods
+--------------
+
+Formal methods are not yet "tried and tested". There are some realtime
+structured methods, but none are ideal (yet).
+
+Non-realtime methods may be a problem, however. For example, iterative methods
+might not reveal performance problems until near the end of the process.
+
+Ideal Design Method Objectives
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Structuring a system in concurrent tasks
+* Supporting the development of reusable components through information hiding
+* Defining behaviour aspects using finite-state machines (or some other
+  formalism)
+* Analysing the performance of a design to determine its realtime properties
+
+Implementation
+--------------
+
+Programming language alternatives used in realtime systems:
+
+* Assembly: machine oriented and obscure
+* Sequential languages (e.g. C): weak in realtime control & reliability
+* High-level concurrent programming languages (e.g. Ada, RTSJ, CHILL, Erlang):
+  support for concurrency and embedded system development
+
+Language Ideals
+^^^^^^^^^^^^^^^
+
+* Security - type-safety and checking
+* Readability
+* Flexibility
+* Simplicity
+* Portability
+* Efficiency
+
+Testing
+-------
+
+Testing is complementary to the formal design methods. It is required at all
+stages (modules and assemblies). There are a range of methods (e.g. use of
+simulators).
+
+Prototyping
+^^^^^^^^^^^
+
+A cheap "mock-up" of the system, early in the design process. Used to
+clarify/refine requirements and detect design problems early.
+
+This is contrary to the "waterfall" development model.
+
+Summary
+-------
+
+Creating correct realtime systems requires good software engineering:
+
+* Rigorous specification, often with lots of formalism
+* Appropriate design activities and methods, including specific consideration
+  of realtime issues
+* Appropriate implementation liked to rigorous testing/validation
+* Careful consideration of human factors
+* Appropriate and careful management
