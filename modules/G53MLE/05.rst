@@ -100,3 +100,48 @@ Where:
 :math:`P(h|x)`
     Posterior probability of the hypothesis :math:`h` after having seen the
     data :math:`x`.
+
+Maximum a Posteriori (MAP)
+--------------------------
+
+.. math::
+
+    P(h|x) = \frac{P(x|h) P(h)}{P(x)}
+
+    h_{MAP} = arg~max_{h \in H} P(h|x) = arg~max_{h \in H}
+        \frac{P(x|h)P(h)}{p(x)} = arg~max_{h \in H} P(x|h)P(h)
+
+Here :math:`P(x)` is independent of :math:`h`, so it is ignored.
+
+So finally:
+
+.. math::
+
+    h_{MAP} = arg~max_{h \in H} P(x|h)P(h)
+
+Maximum Likelihood
+------------------
+
+.. math::
+
+    h_{ML} = arg~max_{h \in H} P(x|h)
+
+Bayes Classifiers
+-----------------
+
+Uses the past data to make a decision about a new piece of data. Requires
+a huge training set though, which is practically impossible to get.
+
+.. math::
+
+    P(x_1, x_2, ... , x_n | d_i) = \prod_k P(x_k | d_k)
+
+Naive Bayes Classifier
+^^^^^^^^^^^^^^^^^^^^^^
+
+Uses the assumption that the attribute valies are conditionally independent
+given the target value:
+
+.. math::
+
+    Y = arg~max_{d_i \in d} P(d_i) \prod_{k=1}^{4} P(x_k | d_i)
