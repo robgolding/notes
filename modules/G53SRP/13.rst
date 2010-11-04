@@ -1,0 +1,81 @@
+.. _G53SRP13:
+
+============================
+13 - Reliability and Failure
+============================
+
+Reliability is "a measure of the success with which the system conforms to some
+authoritative specification".
+
+Therefore, a failure is when a system deviates from that specification.
+
+Dependability
+-------------
+
+* Availability
+    Readiness for correct service
+* Reliability
+    Continuity of correct service
+* Safety
+* Confidentiality
+    Absence of unauthorised disclosure of information
+* Integrity
+    Absence of improper system alteration
+* Maintainability
+
+Impairments
+^^^^^^^^^^^
+
+* Failures
+    When the behaviour of a system deviates from that which is specified for it
+* Errors
+    Internal discrepancy between intended and actual behaviour, caused by
+    a fault.
+* Faults    
+    A defect of some kind in the system
+
+Fault Types
+^^^^^^^^^^^
+
+Transient
+    Appear for a time and then disappear (e.g. electrical interference)
+Permanent
+    Which appear at some time and remain (e.g. broken wire, bad design)
+Intermittent
+    Which recur from time to time (e.g. heat sensitivity)
+
+Fault Sources
+^^^^^^^^^^^^^
+
+* Inadequate specification
+* Design errors in software components
+* Failure of physical components
+* Interference with communications
+
+Failure Modes
+^^^^^^^^^^^^^
+
+Value failures
+    The wrong value
+Time failure
+    Too early/late or an ommission
+
+Some terms...
+
+Fail uncontrolled
+    Subject to arbitrary failures
+Fail late
+    Correct value but may be late
+Fail silent
+    Only subject to (final) omission failure
+Fail stop
+    Like fail silent but detected
+Fail controlled
+    Only in a specified & controlled manner
+Fail never
+    Always correct and on time
+
+Dependability therefore means **fault prevention**, **fault removal**, **failt
+forecasting**, **fault tolerance**.
+
+
