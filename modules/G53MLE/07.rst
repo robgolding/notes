@@ -1,0 +1,44 @@
+.. _G53MLE07:
+
+====================
+07 - Data Clustering
+====================
+
+So far we have used so-called **supervised learning** where for a given input
+there is a known output, with which the machine can adjust it's parameters.
+This is the case with Neural Networks, K-Nearest Neighbour and Bayesian
+learning.
+
+Sometimes, however, we have data but we don't know how that data is classified.
+For example, if we wish to discover patterns or intrinsic relationships that
+exist in the data set - to learn more about that data or use it in an
+appropriate way.
+
+This sort of application requires **unsupervised learning**, and is often
+referred to as *Data Mining*. Data Clustering is a technique for achieving this
+goal.
+
+Example - GIF Compression
+-------------------------
+
+To compress an image with the GIF format, a colour table is used with (for
+example) 256 colours. Each coloured pixel in the original image is compared
+with the colour table, to find the closest colour. The index of this colour is
+then recorded in the GIF image.
+
+To find the closest colour, the original colours (R, G, B) are projected onto
+a 3-dimensional feature space, and then "clouds" of similar colours are
+grouped, and replaced with one colour in the GIF colour table.
+
+K-Means
+-------
+
+K-Means is an algorithm for partitioning (clustering) :math:`N` data points into
+:math:`K` disjoint subsets :math:`S_j` containing  :math:`N_j` data points.
+
+The algorithm defines a cluster "centroid" or "prototype" for each cluster,
+which can be randomly chosen at the starting point.
+
+When a new sample is added, the Euclidean distance between it and the existing
+prototypes is calculated, and it is assigned to the cluster whose prototype is
+closest.
