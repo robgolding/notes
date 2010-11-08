@@ -1,0 +1,141 @@
+.. _G54ACCUP08:
+
+========================
+IP & Up 08 - Programming
+========================
+
+Sockets
+-------
+
+Berkeley Sockets API:
+
+* socket()
+* connect()
+* send()
+* recv()
+* etc.
+
+Internet sockets are presented as file descriptors::
+
+    int socket(int domain, int type, int protocol)
+
+TCP vs. UDP Sockets
+^^^^^^^^^^^^^^^^^^^
+
+TCP: ``socket(), bind(), listen(), send()/write(), recv()/read()``
+UDP: ``socket(), bind(), sendto(), recvfrom()`` (packet-based, connectionless)
+
+Endianness
+^^^^^^^^^^
+
+Host byte order need not be identical:
+
+* Big endian (most significant byte first)
+* Little endian (least significant byte first)
+
+Need to decide which to use on the network:
+
+This is **Big endian**.
+
+Multiplexing
+^^^^^^^^^^^^
+
+A naive process is to read any available data, and then block waiting for more
+data. This is inefficient, and can only handle one socket.
+
+Another naive approach is to poll a non-blocking socket for data to read. This
+wastes CPU cycles however.
+
+Alternatively, we can use ``select()``, in either a blocking or non-blocking
+manner. This enables waiting (until a timeout) on any socket of a set becoming
+active::
+
+    int select(int nfds, fd_set *rfds, fd_set *wfds, fd_set *efds, struct
+                timeval timeout)
+
+Web RPC
+-------
+
+Two very common and standardised web RPC technologies are XML-RPC and SOAP.
+SOAP evolved from XML-RPC, but there is somewhat of a war between the two.
+
+Essentially, they both provide data encoded as XML with RPC interfaces to
+remote web services.
+
+XML-RPC
+^^^^^^^
+
+Simple, encodes method calls as XML and transmits over HTTP.
+
+SOAP
+^^^^
+
+Newer, more feature-full and flexible, but complicated. Doesn't require the use
+of HTTP as the transport, and provides discovery via WSDL for example.
+
+RESTful Web Services
+--------------------
+
+The goals of RESTful web service is to minimize latency and communication, and
+to maximise scalability and component independence.
+
+REST:
+    REpresentational State Transfer
+
+REST makes more extensive use of HTTP features, though it can in principle use
+other transport protocols.
+
+Client requests generate server responses.
+
+There are six architectural constraints:
+
+* Client-server, cacheable, layered
+    - separate concerns regarding existence of caches/proxies etc.
+* Code on demand (optional)
+    - Server can push e.g. Javascript to the client as part of the response
+* Stateless, uniform interface...
+
+Stateless
+^^^^^^^^^
+
+This means that no client context is stored on the server between requests.
+Therefore each client request must contain enough information for the server to
+service it.
+
+Uniform Interface
+^^^^^^^^^^^^^^^^^
+
+Client uses representation to modify the server state, addressed via URL.
+
+RESTful service maps CRUD to HTTP methods:
+
+* CREATE: POST
+* READ: GET (idempotent, side-effect free)
+* UPDATE: PUT (idempotent, as uses a specified name)
+* DELETE: DELETE (idempotent)
+
+There is, however, some debate as to whether CREATE/UPDATE should be POST/PUT.
+
+Cloud Computing
+---------------
+
+Datacenter as a "utility", and buy/rent it on demand, so applications can scale
+very quickly with increased/decreased demand.
+
+However, cloud computing carries some problems:
+
+* Variable performance
+* Little control over the placement of data
+* Unknown trust implications
+* Cloud provider is a SPOF
+* Building scalable services is still very difficult
+
+Types of Cloud Computing
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Software
+    Software-as-a-service
+Platform
+    Cloud-based software platform (e.g. python interpreter)
+Infrastructure
+    VMs a'la Amazon EC2 as a service
