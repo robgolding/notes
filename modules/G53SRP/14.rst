@@ -1,0 +1,114 @@
+.. _G53SRP14:
+
+========================================
+14 - Software Fault Tolerance Techniques
+========================================
+
+Redundancy
+----------
+
+Fault tolerance relies on some form of redundancy. For example, having more
+than is required for a working system (i.e. including hardware *and* software
+implementations).
+
+If part of the system fails, then the "spare" parts can be used instead.
+
+N-version Programming
+^^^^^^^^^^^^^^^^^^^^^
+
+Performs "error masking", and is comparable to Triple Modular Redundancy in
+hardware.
+
+A part or section of the program is duplicated, and the outputs are compared in
+the hope that they will all be the same. If they aren't, "voting" can be used
+to pick the most likely right answer (with 3 modules, for example).
+
+Failure Modes
+"""""""""""""
+
+Whereas two hardware components are likely to fail randomly and independently,
+two copies of the same method will to *exactly* the same thing, and have the
+same bugs (though cosmic radiation could cause this to deviate).
+
+So full software redundancy therefore requires:
+
+* Different languages
+* Different compilers
+* Different algorithms
+* Limited/no sharing between "teams"
+
+Implementation
+""""""""""""""
+
+This requires a driver program, which invokes the separate versions, waits for
+the outputs and then compares them.
+
+There can be problems with deciding on the correct output, however. For
+example, floating point differences can mean that two programs both produce the
+correct output, but they are not "equal" when seen by the driver program. Also,
+there may be multiple correct solutions.
+
+There are other issues with this technique also, such as problems in the
+specification leading to errors in all versions of the program. Not to mention
+the fact that it is expensive to do the same thing multiple times!
+
+Software Dynamic Redundancy
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+While N-version programming is rather "static", software can deal with faults
+in a more dynamic way.
+
+There are 4 stages to a "fault":
+
+#. Error detection
+#. Damage confinement and assessment
+#. Error recovery
+#. Fault treatment and continued service
+
+Error Detection
+"""""""""""""""
+
+Environmental:
+    Divide by zero, array bounds, etc.
+
+Application
+    Replication checks, timing checks, reversal checks, coding checks, etc.
+
+Damage Confinement/Assessment
+"""""""""""""""""""""""""""""
+
+AKA Firewalling. Preventing the error from propagating throughout the program
+and causing larger and larger things to go wrong.
+
+Techniques for achieving this include:
+
+* Modular decomposition (i.e. designing RT systems notes)
+* Atomic actions (i.e. concurrency notes)
+
+Error Recovery
+""""""""""""""
+
+**Backward Recovery**
+
+Checkpoints (or recovery points) can be used, to roll back to a point when
+things were OK. Rolling back may, however, causing a "domino" effect where lots
+of components may have to roll back also.
+
+**Forward Recovery**
+
+Perhaps some compensatory action can be taken (like a fail-safe mode), when
+rolling back is not an option (i.e. a fly-by-wire system).
+
+**Error Masking**
+
+Fail-over systems can be used, so if the first fails the second can pick up the
+work.
+
+Fault Treatment and Continued Service
+"""""""""""""""""""""""""""""""""""""
+
+i.e. Resolving the underlying fault (by fixing the bug, or replacing the failed
+part, for example).
+
+This requires monitoring and/or reporting, and should be supported by
+mechanisms for in-place maintenance.
