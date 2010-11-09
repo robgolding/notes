@@ -42,3 +42,77 @@ which can be randomly chosen at the starting point.
 When a new sample is added, the Euclidean distance between it and the existing
 prototypes is calculated, and it is assigned to the cluster whose prototype is
 closest.
+
+The Algorithm
+^^^^^^^^^^^^^
+
+**Step 1**
+
+Arbitrarily choose from the given sample set :math:`k` initial cluster centres.
+For example, the first :math:`k` samples could be used, or they could be chosen
+at random.
+
+Set :math:`t = 0` (the iteration index).
+
+**Step 2**
+
+Assign each of the samples to one of the clusters according to the distance
+between the sample and the centre of the cluster.
+
+.. math::
+
+    X(i) \in C^{(t)}(j)
+
+    if~D(X(i), M^{(t)}(j)) \leq D(X(i), M^{(t)}(l))
+
+    for~all~l = 1, 2, ..., k
+
+**Step 3**
+
+Update the cluster centres to be the average of all the points in the
+corresponding cluster.
+
+.. math::
+
+    M^{(t+1)}(j) = \frac{1}{N^{(t)}_j} \sum_{X(i) \in C^{(t)}(j)} X(i)
+
+**Step 4**
+
+Calculate the error of approximation, to monitor the progress of the algorithm.
+
+.. math::
+
+    E(t) = \frac{1}{2} \sum_{j=1}^K \sum_{X(i) \in C^{(t)}(j)}
+        ||X(i) - M^{(t)}(j)||^2
+
+This quantity is expected to reduce as the algorithm progresses.
+
+**Step 5**
+
+If the terminating criterion is met, then terminate.
+
+Otherwise, set :math:`t = t+1` and go to step 2.
+
+Stopping Criteria
+^^^^^^^^^^^^^^^^^
+
+The following stopping criteria can be used for the K-Means algorithm:
+
+#. The errors do not change significantly in two consecutive epochs:
+    :math:`|E(t) - E(t-1)| < \epsilon` where :math:`\epsilon` is some small,
+    preset value
+#. No further change in the assignment of the data points to clusters in two
+   consecutive epochs.
+#. After a fixed number of epochs.
+
+Remarks
+^^^^^^^
+
+* K-Means is a gradient descent algorithm, which attempts to minimize a cost
+  function :math:`E`.
+* In general, the algorithm does not achieve a global minimum of :math:`E` over
+  the assignments.
+* The algorithm is sensitive to the initial choice of cluster centres. Different
+  starting cluster centroids may lead to a different solution.
+* It is a popular method, and many more advanced methods have been derived from
+  this simple algorithm.
