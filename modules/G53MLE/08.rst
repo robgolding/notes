@@ -1,0 +1,58 @@
+.. _G53MLE08:
+
+=======================================
+08 - Principal Component Analysis (PCA)
+=======================================
+
+In most cases, the raw data we collect from sensors (cameras, etc.) is very
+highly dimensional (i.e. 100s of dimensions). Generally, we use *feature
+extraction* to reduce the dimensionality of this raw data, whilst still
+retaining the useful information - before passing the data to the classifier.
+
+The basic principle of feature extraction is to transform a raw data vector
+:math:`X` (of :math:`N` dimensions) to a new vector :math:`Y` (of :math:`n`
+dimensions), where :math:`n << N`, via a transformation matrix :math:`A` such
+that :math:`Y` captures most of the information in :math:`X`.
+
+.. math::
+
+    Y = AX
+
+Principle Component Analysis
+----------------------------
+
+Principle Component Analysis is one of the most common dimensionality reduction
+techniques.
+
+The first principle component is the "direction" by which the data varies the
+largest. Subsequent principle components are orthogonal to the first PC, and
+describe the maximum residual variance.
+
+PCA has many applications, including:
+
+* Visualisation
+* Data reduction
+* Data classification
+* Trend analysis
+* Factor analysis
+* Noise reduction
+
+Redundancy
+----------
+
+If, for example, two pieces of data are recorded (:math:`r1` and :math:`r2`).
+If the two values are uncorrelated (so the graph looks random, possibly
+circular), then there is no redundancy between the two recordings.
+
+Alternatively, if they are highly correlated, then knowing the value of one
+item, we can predict the value of the other. Therefore there is high redundancy
+in the data.
+
+Covariance Matrix
+-----------------
+
+The covariance matric describes all relationships between pairs of measurements
+in our data set.
+
+A larger covariance indicates large correlation (so lots of redundancy), and
+zero covariance indicates no correlation (so no redundancy).
