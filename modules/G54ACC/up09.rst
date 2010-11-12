@@ -1,0 +1,94 @@
+.. _G54ACCUP09:
+
+=====================
+IP & Up 09 - Security
+=====================
+
+Techniques
+----------
+
+Encryption:
+    One time pads
+    Private keys (symmetric)
+    Public keys (asymmetric)
+
+Traffic analysis:
+    Communication patterns can give away the fact that you are communicating
+    with someone else. For example, hacked computers often start using the
+    network in strange ways.
+
+Application Security
+--------------------
+
+SSL/TLS (HTTPS)
+^^^^^^^^^^^^^^^
+
+* Transport Layer Security
+    * Grew out of Secure Sockets Layer, by Netscape
+    * Incredibly complex
+    * Very hard to get right
+    * Also very widely used...
+
+HTTPS uses TLS/SSL to:
+
+* Provide a secure channel over an insecure network
+* Verify the identity of the server
+* Occasionally verify the identity of the client
+
+The server generates a public/private key pair, and signs the
+public key (using the CA's public key).
+
+On connection, the server returns the public certificate to the client. The
+client then generates a session key, and encrypts it using the server's public
+key, and sends it back. The server then uses this session key to continue
+communication using symmetric encryption.
+
+OpenID
+^^^^^^
+
+OpenID is a standard that allows you to prove that you are identified by
+a particular URL. This allows you to use that URL as an identity for multiple
+sites/services. This is not the same as *Single Sign-On*.
+
+OpenID is not about trust or authorization. It simply enables a site to use
+a third-party to verify the identity of a user.
+
+There are two modes: Dumb (stateless) and Smart (stateful). Dumb mode is
+simpler to use from a code perspective, but is more computationally expensive.
+Smart mode is harder, but computationally cheaper to use.
+
+OAuth
+^^^^^
+
+OAuth authenticated third-party access to your data. It is concerned with
+delegating access to resources. For example, allowing third-party apps to use
+your Flickr or Twitter accounts.
+
+It uses cryptographically generated tokens to manage and/or limit this access:
+
+* The request token is used to obtain user authorization (password), to allow
+  the application access
+* This allows the app to request an access token, which grants them access to
+  the resources with a unique identifier (allowing the user to revoke that
+  access at any time)
+
+There are some problems with OAuth 1.0, which are being addressed in v2.0:
+
+* Performance at scale isn't brilliant
+* Absence of crypto-free options (for very constrained devices, for example)
+* Lifetime of tokens vs authorization
+* Limited number of flows through the protocol
+
+It also adds influence from Facebook Connect.
+
+Network Security
+----------------
+
+There is an inherent conflict here - you want to control the use of your
+network, whilst authorising the anonymous/unknown user.
+
+Intrusion Detection can be used to detect if a host or router has been hacked.
+We can use techniques such as Deep Packet Inspection to achieve this, but this
+is difficult as the software has to be very fast and efficient.
+
+(D)DoS attacks and BotNets can cause massive problems for networks.
