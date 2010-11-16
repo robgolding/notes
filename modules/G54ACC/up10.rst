@@ -1,0 +1,166 @@
+.. _G54ACCUP10:
+
+========================================
+IP & Up 10 - Abstractions & 3G Evolution
+========================================
+
+System Design
+-------------
+
+The art and science of extracting what you can from what you have.
+
+The goals of system design are often not well-formed. For example scalability,
+modularity, extensibility, elegance are subjective.
+
+System Constraints
+^^^^^^^^^^^^^^^^^^
+
+* Design
+    * Bottleneck resource (the most constrained element)
+    * Scaling (to infinity...)
+* Resources
+    * Latency (i.e. the speed of light is a hard limit)
+    * Throughput & capacity
+    * Money (ha!)
+
+Social Constraints
+^^^^^^^^^^^^^^^^^^
+
+* Standards compliance (legal implications)
+* Market conditions (economic sustainability etc.)
+* Labour availability
+* Future proofing
+
+Common Techniques
+-----------------
+
+Layering & Tunneling
+^^^^^^^^^^^^^^^^^^^^
+
+Controlling complexity by restricting component interactions. This is effecting
+simplicity at the cost of performance. Often can also benefit from layer
+violation(s).
+
+Protocols need not always be strictly layered (as in protocol heaps).
+
+Extensibility
+^^^^^^^^^^^^^
+
+We don't have the ability of knowing how our creations will be used (i.e. how
+people will decide to use protocols or networks).
+
+Therefore, we need to allow for future growth and upgrade. For this, we can use
+"ships in the night" technique (run two protocols side-by-side), or integrated
+operation. Also things like version fields can be useful.
+
+Hierarchy
+^^^^^^^^^
+
+Recursive decomposition into smaller pieces, with each piece typically depending
+on it's parent.
+
+Binding & Indirection
+^^^^^^^^^^^^^^^^^^^^^
+
+Translating from abstraction to instance:
+ * Computation vs. lookup
+ * Distributed vs. centralised lookup
+
+E.g. DNS
+
+State Management
+^^^^^^^^^^^^^^^^
+
+Soft state:
+    * Requires refreshing else deleted on timer
+    * Increased bandwidth for automatic cleanup after failure
+
+Explicit state:
+    * Easier to interpret, manage, and error-protect
+
+For example, link-state vs. distance vector routing
+
+Randomization
+^^^^^^^^^^^^^
+
+Can be a powerful tool for tie-breaking and security. It is used up and down
+the stack for things like Ethernet collisions, nonces, router election etc.
+
+Operating Timescales
+^^^^^^^^^^^^^^^^^^^^
+
+Not all operations need to be equally fast, or have the same granularity (e.g.
+once per packet vs. once per communication).
+
+Data vs. control vs. management.
+
+3G Data Network Evolution
+-------------------------
+
+EPC (Enhanced Packet Core) Data Networks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The vision is to provide continuous IP connectivity on resource constrained
+devices, with a single radio on battery power, and while
+geographically/logically mobile. Also, detailed control and management is
+required.
+
+Basic LTE Operation
+^^^^^^^^^^^^^^^^^^^
+
+Transmit:
+
+* Device registers with network
+* Obtains configuration (address, server gateway, etc.)
+* Network signals bearers (tunnels) to be set up
+
+Receive:
+
+* MME pages server gateways for the client device
+* Device responds, settings up the bearers via server gateway
+
+Different Style
+^^^^^^^^^^^^^^^
+
+The network is much more intelligent than a "dumb" network like the internet.
+Therefore it's much more complex, with things like accounting being required.
+
+Signal Measuremen
+^^^^^^^^^^^^^^^^^
+
+Base stations may overlap, so its difficult for the device to pick which one to
+use.
+
+The base station creates idle slots to enable devices to measure the signal
+strength. This is because the device can only be guaranteed to have a maximum
+of 1 radio, and can't do simultaneous tx/rx, and can't be on multiple RANs at
+the same time.
+
+Idle Mode
+^^^^^^^^^
+
+The device can go into idle mode to save power. In this state, it will still
+send periodic updates to the network.
+
+The server gateway buffers packets for the device while it is paged by the MME.
+
+Tracking Areas
+^^^^^^^^^^^^^^
+
+The device is given a list of base stations in a given tracking area. The
+device notifies the network if it changes tracking area.
+
+To prevent against burst load which could occur when a train full of phones
+switches from one base station to another, a different list of base stations is
+given out to each device in a given tracking area. This spreads the load out on
+base stations. The process can be further optimized using movement prediction.
+
+Pooling
+^^^^^^^
+
+In 2G and 3G, a hierarchical core is used (a device connects to one base
+station in a cell).
+
+In EPC, there is a pool of weighted MMEs in a region. This enables base
+stations to distribute load across MMEs. Also, it makes more efficient use of
+statistical multiplexing.

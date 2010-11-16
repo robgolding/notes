@@ -51,8 +51,35 @@ in the data.
 Covariance Matrix
 -----------------
 
-The covariance matric describes all relationships between pairs of measurements
+The covariance matrix describes all relationships between pairs of measurements
 in our data set.
 
 A larger covariance indicates large correlation (so lots of redundancy), and
 zero covariance indicates no correlation (so no redundancy).
+
+If our goal is to reduce redundancy, then we want each variable to co-vary as
+little as possible. Precisely, we want the covariance between separate
+measurements to be zero.
+
+Hpw it Works
+------------
+
+* PCA first selects a normalised direction in m-dimensional space along which
+  the variance of X is maximised - it saves this direction as :math:`p_1`
+* It then finds another direction, along which variance is maximised subject to
+  the orthonormal condition - it restricts its search to all directions
+  perpendicular to all previous selected directions
+* The process can continue until m directions are found. The resulting ordered
+  set of p's are the **principal components**
+* The variances associated with each direction :math:`p_i` quantify how
+  principal (important) each direction is - thus rank-ordering each basis
+  according to the corresponding variance
+
+PCA Procedures
+--------------
+
+First get the data (of course).
+
+#. Subtract the mean from each data point (in each dimension separately)
+#. Calculate the covariance matrix
+#. Calculate the eigenvectors and eigenvalues of the covariance matrix
