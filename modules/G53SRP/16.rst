@@ -1,0 +1,52 @@
+.. _G53SRP16:
+
+=========================
+16 - Feasibility Analysis
+=========================
+
+Feasibility
+    Whether a set of process, if scheduled correctly, will meet their
+    deadlines. This is also known as "schedulability".
+
+Simple Process & Scheduling Model
+---------------------------------
+
+* Fixed set of processes
+* Known worst-case execution times
+* Independent processes
+* Periodic; known deadlines
+* Zero time context switch
+* Priority-based scheduling
+
+We cannot perform feasibility analysis for an aperiodic process, so none of
+these are ever "feasible".
+
+**Parameters:**
+
+D = deadline (time period)
+
+T = period of periodic process
+
+C = worst case execution time
+
+N = number of processes
+
+**Tests:**
+
+* Is there enough CPU capacity?
+.. math::
+
+  \sum_{i=0}^{N}\frac{C_i}{T_i} <= I
+
+A more clever version, however, which takes into account the spare CPU required
+to sort out the "conflicts" between processes:
+
+.. math::
+
+  \sum_{i=0}^{N}\frac{C_i}{T_i} <= N(2^{\frac{1}{N}}-1)
+
+Response Time Analysis
+^^^^^^^^^^^^^^^^^^^^^^
+
+If a worst-case scenario happens, will the processes all meet their deadlines?
+This worst case is that all processes are released at exactly the same moment.
