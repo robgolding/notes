@@ -1,0 +1,23 @@
+.. _G53MLE09:
+
+============================
+09 - Support Vector Machines
+============================
+
+Classification Margin
+---------------------
+
+We can measure the distance from a data point to the separator. Points that are
+closest to the hyperplane are called *support vectors*.
+
+Margin :math:`\rho` of the separator is the distance between support vectors on
+either side of the separator.
+
+Maximum Margin Classification
+------------------------------
+
+Maximizing the margin is a good thing, according to intuition and PAC theory
+(Probably Approximately Correct). HA!
+
+This implies that only the support vectors actually matter - and that other
+examples can be ignored.

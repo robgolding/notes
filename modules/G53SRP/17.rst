@@ -1,0 +1,73 @@
+.. _G53SRP17:
+
+=================================
+13 - RTSJ Memory and Memory Areas
+=================================
+
+In regular Java, all objects are allocated on the heap, which is a single
+expandable area of memory. Local variables and parameters are on the thread's
+stack.
+
+A garbage collection algorithm runs in the background (i.e. when
+the heap is full, or periodically).
+
+Realtime Issues
+---------------
+
+In real time programs, memory may be limited. Also, garbage collection may
+interfere with processes, causing additional delays or even missed deadlines.
+
+RTSJ Responses
+--------------
+
+RTSJ allows objects to be allocated in non-heap "memory areas".
+
+Garbage collection is avoided for those areas. In fact, these areas can even be
+recycled as a whole (``ScopedMemory``).
+
+This allows more explicit management of memory from within the program.
+
+``RealtimeThread`` and ``AsyncEventHandler`` have a ``MemoryArea`` parameter.
+This is the initial memory area in which to execute, and is available via
+``getMemoryArea()``. Memory areas are also visible as a memory area stack.
+
+No head threads and handlers
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To completely avoid interference from the garbage collector, a ``Schedulable``
+must:
+
+* Not use heap memory at all
+    * This is indicated to the JVM by using ``NoHeapRealtimeThread`` class or
+      ``AsyncEventHandler`` with ``noheap = true``
+    * Throws exception if heap memory used
+* Have a higher priority than any heap-using thread
+    * Garbage collection may occur on behalf of any heap-using thread, at it's
+      priority
+
+Physical Memory Access
+----------------------
+
+An embedded device might have several different types of memory, each with
+different characteristics:
+
+* Fast volatile DRAM/SRAM
+* Fast read-only ROM/EPROM
+* Slower non-volatile EEPROM/FLASH
+* Removable memory, e.g. SD/MMC card
+
+The program will need to use the right kind of memory for the right things.
+
+Raw Memory Access
+^^^^^^^^^^^^^^^^^
+
+In RTSJ, we can access raw bytes in memory. For example:
+
+* Interacting with an I/O device
+* Accessing memory shared with another application
+
+To do this, we use the ``RawMemoryAccess`` class.
+
+When we are messing with raw memory, however, the endianness of the processor
+we are running on starts to matter. Therefore, the
+``javax.realtime.RealtimeSystem`` class allows us to check this value.
