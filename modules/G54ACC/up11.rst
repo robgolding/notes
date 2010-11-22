@@ -1,0 +1,47 @@
+.. _G54ACCUP11:
+
+=====================
+IP & Up 11 - Revision
+=====================
+
+**What is ARP and what function does it perform?**
+
+ARP resolves IP addresses to MAC addresses (Address Resolution Protocol)
+
+**What is an IP subnet and what function does it serve?**
+
+An IP subnet is a section of an IP network whereby hosts can communicate
+without the packets being passing through a router. This serves to separate
+broadcast domains, and therefore limit broadcast traffic exiting that section
+of the network.
+
+*An aggregate of IP addresses. 192.168.1.2 is an ip address, in the subnet
+containing 192.168.1.0 - 192.168.1.255*
+
+**Illustrate ARP on a simple ethernet with 3 hosts on the same subnet connected
+via a hub**
+
+* Host A wishes to communicate with host B, so it sends a message to the
+  broadcast MAC (ff:ff:ff:ff:ff:ff), asking who has host B's IP address.
+* Host B responds to host A with a message signifying that it has that IP,
+  and the hosts begin to communicate.
+
+
+**The hub is replaced with a router, and one host is a web server. Show the
+sequence of events for fetching a web page**
+
+* Host A does not have an IP, so it broadcasts a DHCP request (to
+  255.255.255.255, ff:ff:ff:ff:ff:ff).
+* The DHCP server responds with an IP for Host A to use, and network
+  information such as the default gateway and DNS server(s)
+* Host A realises that the web server's IP is on a different subnet, so it
+  looks in the routing table for where to send the packet.
+* The default gateway is the only option, so it broadcasts an ARP request for
+  the DG's IP
+* A TCP connection is setup between host A and the server, using the IP
+  destination of the server, but the ethernet destination of the *router*
+  (SYN-SYNACK-ACK)
+* Host A sends the HTTP request to the server using the TCP connection
+* The server must respond, so it looks in the routing table in the same way. DG
+  is the only option, so the same process insues
+* HTTP response is sent back to host A from web server
