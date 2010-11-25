@@ -1,0 +1,16 @@
+.. _G53SRP18:
+
+=========================
+18 - Hardware Interfacing
+=========================
+
+Device Registers
+----------------
+
+Device registers look like memory from the program's perspective. For example:
+
+* Status registers (read)
+* Control registers (write)
+* Data buffer registers (read/write)
+
+

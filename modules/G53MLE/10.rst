@@ -1,0 +1,50 @@
+.. _G53MLE10:
+
+===========================
+10 - Decision Tree Learning
+===========================
+
+A decision tree is a hierarchical data structure that respresents data by
+implementing a divide & conquer strategy.
+
+It can be used as a non-parametric classification and regression method.
+
+Nodes in the tree are *tests* for the values of the features on the
+instance(s). Leaves of the tree are categories, and are reached by passing
+through each node in the tree above that leaf.::
+
+                               Colour
+                            /           \
+                           /             \
+                          /               \
+                         /                 \
+                        /                   \
+                       /                     \
+                      /                       \
+                     /                         \
+                    /                           \
+                   / (blue)              (green) \
+                  /                               \
+                Shape                           Shape
+            /           \                   /           \
+           /             \                 /             \
+          /(circ.)  (sqr.)\               /(circ.)  (sqr.)\
+         /                 \             /                 \
+        /                   \           /                   \
+    Class A             Class B      Class C             Class D
+
+The evaluation of a decision tree is very easy, but learning a *good*
+representation of the data is the challenge.
+
+Decision trees have the advantage of being able to represent non-metric data,
+which is very difficult in models such as the perceptron. Basically, they are
+just a load of nested ``if`` statements!
+
+Picking the Root Attribute
+--------------------------
+
+The goal is to have the resulting decision tree as small as possible. Finding
+the minimal decision tree consistent with the data is NP-hard.
+
+We want to choose attributes that split the examples to sets that are
+relatively "pure" in one label - this way we are closer to a leaf node.
