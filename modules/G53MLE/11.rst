@@ -1,0 +1,82 @@
+.. _G53MLE11:
+
+============
+11 - Summary
+============
+
+Topics Covered
+--------------
+
+1. Introduction
+^^^^^^^^^^^^^^^
+
+* Learning and learning systems
+* Design of learning systems
+* Basic mathematics
+    * First order derivative, partial derivative etc. will be required for the
+      exam
+
+2. Neural Networks
+^^^^^^^^^^^^^^^^^^
+
+* Perceptron
+* ADLINE
+* Multi-layer perceptron (MLP)
+
+The architecture, properties, learning model and algorithms used are required
+for each model on the exam.
+
+The principal of back-propagation is also required (though not the details).
+
+3. Bayesian Learning
+^^^^^^^^^^^^^^^^^^^^
+
+* Basic probability theory
+* Bayesian theorem
+* Maximum a posteriori (MAP)
+* Maximum likelihood (ML)
+* Bayesian classifier
+* Naive Bayesian classifier
+
+4. Instance-based Learning
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* K-NN classifier
+
+5. Clustering Analysis
+^^^^^^^^^^^^^^^^^^^^^^
+
+* K-means algorithm
+* Competitive learning (unsupervised learning)
+
+6. Data Processing & Representation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Covariance matrix
+* Correlation
+* Redundancy
+* Feature extraction/dimensionality reduction
+* Principal Component Analysis (PCA)
+
+7. Support Vector Machines
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Support vectors
+* Max margin classifier
+* Linear SVMs
+* Soft margin classification
+* Non-linear SVMs
+* The "Kernel Trick"
+
+8. Decision Tree Learning
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Information gain
+* Decision tree construction
+
+Exam
+----
+
+* 5 questions (answer all 5)
+* 2 hours
+* All topics covered are examinable
